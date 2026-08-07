@@ -1,0 +1,53 @@
+/**
+ * Single source of truth for event facts used across sections.
+ * Keeps the Hero, Event Details, Footer and metadata in sync.
+ */
+
+export const EVENT = {
+  name: "Kingdom Entrepreneurs Summit",
+  shortName: "KES",
+  year: "2026",
+  theme: "The Sovereign Entrepreneur",
+  tagline: "Influence. Audacity. Legacy.",
+  description:
+    "A free gathering for faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.",
+  url: "https://kingdomentrepreneurssummit.com",
+  dates: {
+    label: "October 17, 2026",
+    full: "Saturday, October 17, 2026",
+    short: "Oct 17",
+    iso: "2026-10-17",
+    day: "Saturday",
+  },
+  venue: {
+    name: "Dominion Hall",
+    street: "Beside Henry Tee Motors",
+    area: "Ring Road, Ibadan",
+    cityShort: "Ibadan",
+    country: "Nigeria",
+    full: "Dominion Hall, Beside Henry Tee Motors, Ring Road, Ibadan",
+  },
+  admission: "Free with registration",
+  email: "hello@kingdomentrepreneurssummit.com",
+  social: {
+    instagram: "https://instagram.com",
+    linkedin: "https://linkedin.com",
+    x: "https://x.com",
+    youtube: "https://youtube.com",
+  },
+} as const;
+
+export const BUSINESS_STAGES = [
+  { value: "idea", label: "Idea Stage" },
+  { value: "startup", label: "Startup" },
+  { value: "growing", label: "Growing Business" },
+  { value: "established", label: "Established Business" },
+] as const;
+
+export const NAV_LINKS = [
+  { label: "The Sovereign Entrepreneur", href: "#sovereign" },
+  { label: "Pillars", href: "#pillars" },
+  { label: "Journey", href: "#journey" },
+  { label: "Past Events", href: "#past-events" },
+  { label: "Details", href: "#details" },
+] as const;
