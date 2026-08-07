@@ -86,7 +86,7 @@ export function RegistrationForm() {
           className="flex flex-col items-center py-6 text-center"
         >
           <span className="mb-7 inline-flex h-16 w-16 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10">
-            <svg viewBox="0 0 24 24" className="h-7 w-7 text-gold-400">
+            <svg viewBox="0 0 24 24" className="h-7 w-7 text-gold-500">
               <motion.path
                 d="M4.5 12.5l5 5 10-11"
                 fill="none"
@@ -105,7 +105,7 @@ export function RegistrationForm() {
           </h3>
           <p className="text-cream-dim max-w-sm leading-relaxed">
             We&apos;ve sent a confirmation to{" "}
-            <span className="text-gold-300">{values.email}</span>. Your entry
+            <span className="text-gold-600">{values.email}</span>. Your entry
             pass and full details follow closer to the date.
           </p>
           <div className="hairline my-8" />
@@ -233,7 +233,7 @@ export function RegistrationForm() {
         </div>
 
         {formMessage && (
-          <p role="alert" className="text-sm text-red-300/90">
+          <p role="alert" className="text-sm text-red-600">
             {formMessage}
           </p>
         )}
@@ -281,7 +281,7 @@ function Spinner() {
   return (
     <span
       aria-hidden
-      className="h-4 w-4 animate-spin rounded-full border-2 border-charcoal-950/25 border-t-charcoal-950"
+      className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
     />
   );
 }

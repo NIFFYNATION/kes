@@ -8,20 +8,20 @@ const labelClass =
   "mb-2 block text-label uppercase text-cream-faint transition-colors duration-300";
 
 const controlBase = cn(
-  "w-full rounded-field border bg-charcoal-800/70 px-4 text-[0.9375rem] text-cream",
-  "placeholder:text-cream-faint/60 transition-all duration-300",
+  "w-full rounded-field border bg-charcoal-900 px-4 text-[0.9375rem] text-cream",
+  "placeholder:text-cream-faint/70 transition-all duration-300",
   "focus:outline-none focus:ring-0",
 );
 
 function stateClass(hasError: boolean) {
   return hasError
-    ? "border-red-400/55 focus:border-red-400/80 focus:bg-charcoal-800"
-    : "border-white/10 hover:border-white/20 focus:border-gold-500/70 focus:bg-charcoal-800 focus:shadow-[0_0_0_4px_rgba(247,148,29,0.13)]";
+    ? "border-red-400/70 focus:border-red-500/80 focus:bg-charcoal-900"
+    : "border-cream/12 hover:border-cream/25 focus:border-gold-500/70 focus:bg-charcoal-900 focus:shadow-[0_0_0_4px_rgba(194,103,12,0.12)]";
 }
 
 function ErrorText({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <p id={id} role="alert" className="mt-1.5 text-xs text-red-300/90">
+    <p id={id} role="alert" className="mt-1.5 text-xs text-red-600">
       {children}
     </p>
   );

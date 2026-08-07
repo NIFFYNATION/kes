@@ -37,8 +37,8 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2.5 rounded-full border border-gold-500/25 bg-gold-500/[0.07] px-4 py-2 backdrop-blur-md",
-        "text-label uppercase text-gold-300",
+        "inline-flex items-center gap-2.5 rounded-full border border-gold-500/30 bg-gold-500/[0.08] px-4 py-2 backdrop-blur-md",
+        "text-label uppercase text-gold-600",
         className,
       )}
     >

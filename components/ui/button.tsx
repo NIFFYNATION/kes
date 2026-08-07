@@ -14,17 +14,17 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   gold: cn(
-    "text-charcoal-950 shadow-gold",
-    "bg-[linear-gradient(135deg,var(--color-gold-200)_0%,var(--color-gold-400)_38%,var(--color-bronze-400)_100%)]",
+    "text-white shadow-gold",
+    "bg-[linear-gradient(135deg,var(--color-gold-400)_0%,var(--color-gold-500)_46%,var(--color-bronze-500)_100%)]",
     "hover:-translate-y-0.5 hover:shadow-gold-lg active:translate-y-0 active:scale-[0.985]",
   ),
   ghost: cn(
-    "text-cream border border-white/12 bg-white/[0.03] backdrop-blur-md",
-    "hover:border-gold-500/45 hover:bg-white/[0.07] hover:-translate-y-0.5 active:translate-y-0",
+    "text-cream border border-cream/12 bg-cream/[0.03] backdrop-blur-md",
+    "hover:border-gold-500/45 hover:bg-cream/[0.06] hover:-translate-y-0.5 active:translate-y-0",
   ),
   outline: cn(
-    "text-cream border border-white/15",
-    "hover:border-gold-500/50 hover:text-gold-300",
+    "text-cream border border-cream/20",
+    "hover:border-gold-500/60 hover:text-gold-600",
   ),
 };
 

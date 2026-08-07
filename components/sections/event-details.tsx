@@ -13,7 +13,7 @@ function DetailCard({
   lines: string[];
 }) {
   return (
-    <div className="group h-full rounded-panel border border-white/8 bg-charcoal-900/60 p-9 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-gold-500/25 hover:shadow-card">
+    <div className="group h-full rounded-panel border border-cream/10 bg-charcoal-900/70 p-9 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-gold-500/30 hover:shadow-card">
       <p className="text-label uppercase text-gold-500">{label}</p>
       <p className="mt-5 text-2xl font-bold tracking-[-0.03em] text-cream">
         {title}
@@ -36,7 +36,7 @@ export function EventDetails() {
         className="pointer-events-none absolute left-1/2 top-1/3 h-[34vw] w-[70vw] -translate-x-1/2 animate-breathe blur-[140px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,148,29,0.14), transparent 74%)",
+            "radial-gradient(closest-side, rgba(247,160,70,0.1), transparent 74%)",
         }}
       />
 

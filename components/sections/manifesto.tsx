@@ -16,15 +16,15 @@ export function Manifesto() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(130% 100% at 50% 0%, rgba(42,52,150,0.5) 0%, transparent 62%), linear-gradient(180deg, #070718, #101036 48%, #070718)",
+            "radial-gradient(130% 100% at 50% 0%, rgba(90,110,220,0.14) 0%, transparent 62%), linear-gradient(180deg, #f6f3ec, #e9e3f2 48%, #f6f3ec)",
         }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-0 h-[38vw] w-[70vw] -translate-x-1/2 animate-breathe blur-[130px]"
         style={{
-          background:
-            "radial-gradient(closest-side, rgba(84,104,232,0.35), transparent 74%)",
+         background:
+            "radial-gradient(closest-side, rgba(90,110,220,0.16), transparent 74%)",
         }}
       />
 
@@ -52,7 +52,7 @@ export function Manifesto() {
           </Reveal>
         </div>
 
-        <Stagger className="mx-auto mt-24 grid max-w-5xl gap-px overflow-hidden rounded-panel border border-white/8 bg-white/6 sm:grid-cols-3">
+        <Stagger className="mx-auto mt-24 grid max-w-5xl gap-px overflow-hidden rounded-panel border border-cream/10 bg-cream/8 sm:grid-cols-3">
           {CREEDS.map((creed, i) => (
             <StaggerItem key={creed}>
               <div className="h-full bg-charcoal-900/85 p-9 backdrop-blur-sm lg:p-10">

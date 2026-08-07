@@ -9,7 +9,7 @@ const DEFINITIONS = [
   },
   {
     index: "02",
-    body: "Answers for what they build — accountable for the standard, not only the outcome.",
+    body: "Answers for what they build accountable for the standard, not only the outcome.",
   },
   {
     index: "03",
@@ -26,7 +26,7 @@ export function SovereignIntro() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #070718 0%, #0b0b21 28%, #0f0f2a 58%, #09091c 82%, #070718 100%)",
+            "linear-gradient(180deg, #f6f3ec 0%, #efeade 28%, #e9e3f2 58%, #efeade 82%, #f6f3ec 100%)",
         }}
       />
       <div
@@ -34,7 +34,7 @@ export function SovereignIntro() {
         className="pointer-events-none absolute -top-[10%] right-[-12%] h-[52vw] w-[52vw] animate-drift-slower rounded-full opacity-60 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(251,139,60,0.28), rgba(226,106,23,0.10) 52%, transparent 76%)",
+            "radial-gradient(closest-side, rgba(247,160,70,0.20), rgba(226,120,40,0.08) 52%, transparent 76%)",
         }}
       />
       <div
@@ -42,13 +42,13 @@ export function SovereignIntro() {
         className="pointer-events-none absolute bottom-[-14%] left-[-10%] h-[46vw] w-[46vw] animate-drift-slow rounded-full opacity-55 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(58,73,201,0.34), transparent 74%)",
+            "radial-gradient(closest-side, rgba(90,110,220,0.18), transparent 74%)",
         }}
       />
       {/* Grain to keep the layered gradients from banding */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+        className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-multiply"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",

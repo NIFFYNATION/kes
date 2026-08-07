@@ -101,12 +101,12 @@ export function Hero() {
           <div className="lg:col-span-7">
             {/* Event badge */}
             <motion.div {...fade(0.05)}>
-              <span className="inline-flex items-center gap-3 rounded-full border border-gold-500/25 bg-gold-500/[0.07] py-2 pl-3 pr-4.5 backdrop-blur-md">
+              <span className="inline-flex items-center gap-3 rounded-full border border-gold-500/30 bg-gold-500/[0.08] py-2 pl-3 pr-4.5 backdrop-blur-md">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-70" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-400" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-500 opacity-70" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-500" />
                 </span>
-                <span className="text-label uppercase text-gold-300">
+                <span className="text-label uppercase text-gold-600">
                   {EVENT.venue.cityShort} · {EVENT.dates.short} · {EVENT.year}
                 </span>
               </span>
@@ -204,7 +204,7 @@ export function Hero() {
                 className="pointer-events-none absolute -inset-10 -z-10 rounded-full blur-3xl"
                 style={{
                   background:
-                    "radial-gradient(closest-side, rgba(247,148,29,0.22), transparent 72%)",
+                    "radial-gradient(closest-side, rgba(240,150,40,0.18), transparent 72%)",
                 }}
               />
               {/* Perpetual float */}
@@ -230,8 +230,8 @@ export function Hero() {
       >
         <div className="flex flex-col items-center gap-3">
           <span className="text-label uppercase text-cream-faint">Scroll</span>
-          <span className="relative h-12 w-px overflow-hidden bg-white/12">
-            <span className="absolute inset-x-0 top-0 h-4 animate-scroll-hint bg-gold-400" />
+          <span className="relative h-12 w-px overflow-hidden bg-cream/15">
+            <span className="absolute inset-x-0 top-0 h-4 animate-scroll-hint bg-gold-500" />
           </span>
         </div>
       </motion.div>

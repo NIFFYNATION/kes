@@ -13,7 +13,7 @@ export function FinalCta() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 118%, rgba(247,148,29,0.4) 0%, rgba(226,106,23,0.14) 38%, transparent 68%), #070718",
+            "radial-gradient(90% 118% at 120% 50%, rgba(247,160,70,0.22) 0%, rgba(226,106,23,0.08) 38%, transparent 68%), #f6f3ec",
         }}
       />
       <div
@@ -21,7 +21,7 @@ export function FinalCta() {
         className="pointer-events-none absolute bottom-0 left-1/2 h-[34vw] w-[80vw] -translate-x-1/2 animate-breathe blur-[120px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,148,29,0.34), transparent 72%)",
+            "radial-gradient(closest-side, rgba(247,160,70,0.2), transparent 72%)",
         }}
       />
       <Particles count={20} seed={77213} className="z-[1]" />

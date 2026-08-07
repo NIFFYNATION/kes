@@ -25,7 +25,7 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-charcoal-950/80 backdrop-blur-xl border-b border-white/8 shadow-lift"
+          ? "bg-void backdrop-blur-xl border-b border-cream/8 shadow-lift"
           : "bg-transparent",
       )}
     >
@@ -49,7 +49,7 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-field px-4 py-2 text-sm font-medium text-cream-dim transition-colors duration-300 hover:bg-white/5 hover:text-gold-400"
+                className="rounded-field px-4 py-2 text-sm font-medium text-cream-dim transition-colors duration-300 hover:bg-cream/5 hover:text-gold-600"
               >
                 {link.label}
               </a>

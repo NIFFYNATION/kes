@@ -29,7 +29,7 @@ export function JourneyTimeline() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #070718 0%, #09091d 44%, #070718 100%)",
+            "linear-gradient(180deg, #f6f3ec 0%, #efeade 44%, #f6f3ec 100%)",
         }}
       />
       {/* Warm light pooling under the current year */}
@@ -38,7 +38,7 @@ export function JourneyTimeline() {
         className="pointer-events-none absolute right-[6%] top-1/2 h-[38vw] w-[46vw] animate-breathe blur-[140px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,148,29,0.20), transparent 74%)",
+            "radial-gradient(closest-side, rgba(247,160,70,0.14), transparent 74%)",
         }}
       />
 
@@ -67,7 +67,7 @@ export function JourneyTimeline() {
             aria-hidden
             className="absolute left-0 right-0 top-12 hidden h-px lg:block"
           >
-            <div className="h-px w-full bg-white/8" />
+            <div className="h-px w-full bg-cream/12" />
             <motion.div
               className="absolute inset-0 h-px origin-left"
               style={{
@@ -84,7 +84,7 @@ export function JourneyTimeline() {
           {/* Vertical rail on mobile */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-[0.6875rem] top-2 w-px bg-white/8 lg:hidden"
+            className="absolute bottom-0 left-[0.6875rem] top-2 w-px bg-cream/12 lg:hidden"
           />
 
           <ol className="grid gap-14 lg:grid-cols-4 lg:gap-8">
@@ -119,7 +119,7 @@ export function JourneyTimeline() {
                             className="absolute h-14 w-14 animate-glow-pulse rounded-full blur-lg"
                             style={{
                               background:
-                                "radial-gradient(closest-side, rgba(247,148,29,0.7), transparent 72%)",
+                                "radial-gradient(closest-side, rgba(247,160,70,0.6), transparent 72%)",
                             }}
                           />
                         </>
@@ -128,8 +128,8 @@ export function JourneyTimeline() {
                         className={cn(
                           "relative z-10 block rounded-full transition-all duration-700",
                           m.current
-                            ? "h-3.5 w-3.5 bg-gold-300 shadow-[0_0_18px_4px_rgba(247,148,29,0.5)]"
-                            : "h-2.5 w-2.5 bg-charcoal-600 ring-4 ring-charcoal-950",
+                            ? "h-3.5 w-3.5 bg-gold-500 shadow-[0_0_18px_4px_rgba(240,150,40,0.4)]"
+                            : "h-2.5 w-2.5 bg-charcoal-600 ring-4 ring-charcoal-900",
                         )}
                       />
                     </span>
@@ -141,7 +141,7 @@ export function JourneyTimeline() {
                   <p
                     className={cn(
                       "text-numeral tabular-nums transition-colors duration-700",
-                      m.current ? "text-gold-gradient" : "text-cream/28",
+                      m.current ? "text-gold-gradient" : "text-cream/25",
                     )}
                   >
                     {m.year}
@@ -157,7 +157,7 @@ export function JourneyTimeline() {
                       {m.city}
                     </h3>
                     {m.current && (
-                      <span className="text-label rounded-full border border-gold-500/30 bg-gold-500/10 px-2.5 py-1 uppercase text-gold-300">
+                      <span className="text-label rounded-full border border-gold-500/30 bg-gold-500/[0.08] px-2.5 py-1 uppercase text-gold-600">
                         Next
                       </span>
                     )}
@@ -176,7 +176,7 @@ export function JourneyTimeline() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
                     >
-                      <span className="mr-2 text-gold-400">→</span>
+                      <span className="mr-2 text-gold-500">→</span>
                       You are here.
                     </motion.p>
                   )}

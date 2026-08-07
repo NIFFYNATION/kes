@@ -31,7 +31,7 @@ export function Particles({
         top: rand() * 100,
         size,
         // Smaller motes drift slower and sit further back
-        opacity: 0.15 + rand() * 0.45,
+        opacity: 0.12 + rand() * 0.3,
         duration: 16 + rand() * 22,
         delay: rand() * -28,
         drift: -14 + rand() * 28,
@@ -57,11 +57,11 @@ export function Particles({
             width: p.size,
             height: p.size,
             backgroundColor: p.gold
-              ? "var(--color-gold-300)"
-              : "var(--color-cream)",
+              ? "var(--color-gold-400)"
+              : "var(--color-royal-400)",
             boxShadow: p.gold
-              ? "0 0 6px 1px rgba(240, 220, 168, 0.45)"
-              : "0 0 5px 1px rgba(244, 240, 232, 0.28)",
+              ? "0 0 6px 1px rgba(237, 154, 43, 0.4)"
+              : "0 0 5px 1px rgba(68, 87, 208, 0.28)",
           }}
           initial={{ opacity: 0 }}
           animate={{

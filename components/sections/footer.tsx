@@ -10,7 +10,11 @@ const SOCIALS = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/8 bg-charcoal-950">
+    <footer className="relative border-t border-cream/8 bg-charcoal-950"
+    style={{
+          background:
+            "radial-gradient(130% 100% at 50% 0%, rgba(90,110,220,0.14) 0%, transparent 62%), linear-gradient(180deg, #f6f3ec, #e9e3f2 48%, #f6f3ec)",
+        }}>
       <div className="shell py-20 lg:py-24">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           {/* Brand */}
@@ -31,12 +35,12 @@ export function Footer() {
               
             <a
               href={`mailto:${EVENT.email}`}
-              className="mt-7 inline-block text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-400 hover:underline"
+              className="mt-7 inline-block text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-600 hover:underline"
             >
               {EVENT.email}
             </a>
           <p
-              className="mt-3 text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-400 hover:underline"
+              className="mt-3 text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-600 hover:underline"
             >
               Tel: {EVENT.phone}
             </p>
@@ -52,7 +56,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-cream-dim transition-colors duration-300 hover:text-gold-400"
+                    className="text-cream-dim transition-colors duration-300 hover:text-gold-600"
                   >
                     {link.label}
                   </a>
@@ -71,7 +75,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cream-dim transition-colors duration-300 hover:text-gold-400"
+                    className="text-cream-dim transition-colors duration-300 hover:text-gold-600"
                   >
                     {social.label}
                   </a>
@@ -81,7 +85,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-white/8 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-20 flex flex-col gap-4 border-t border-cream/8 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-cream-faint">
             © {EVENT.year} {EVENT.name}. All rights reserved.
           </p>

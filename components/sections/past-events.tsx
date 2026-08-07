@@ -104,10 +104,10 @@ function Coverflow({
               onClick={() => (isActive ? onOpen(i) : onSelect(i))}
               className={cn(
                 "group relative h-full w-full overflow-hidden rounded-panel border bg-charcoal-900",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4 focus-visible:ring-offset-charcoal-950",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4 focus-visible:ring-offset-charcoal-900",
                 isActive
                   ? "cursor-zoom-in border-gold-500/28 shadow-float"
-                  : "cursor-pointer border-white/8 shadow-lift",
+                  : "cursor-pointer border-cream/12 shadow-lift",
               )}
             >
               <Image
@@ -128,7 +128,7 @@ function Coverflow({
               {/* Caption + zoom affordance, active slide only */}
               {isActive && (
                 <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-7">
-                  <span className="text-left text-sm font-medium leading-snug tracking-[-0.01em] text-cream sm:text-[0.9375rem]">
+                  <span className="text-left text-sm font-medium leading-snug tracking-[-0.01em] text-white sm:text-[0.9375rem]">
                     {moment.caption}
                   </span>
                   <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold-400/60 bg-gold-500/15 backdrop-blur-md transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 sm:flex">
@@ -196,7 +196,7 @@ function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={moment.caption}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-void/95 px-4 py-16 backdrop-blur-xl"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[rgba(12,10,20,0.92)] px-4 py-16 backdrop-blur-xl"
       initial={reduce ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -207,7 +207,7 @@ function Lightbox({
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-charcoal-800/80 text-cream transition-colors duration-300 hover:border-gold-500/45 hover:text-gold-300 sm:right-8 sm:top-8"
+        className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors duration-300 hover:border-gold-400/60 hover:text-gold-300 sm:right-8 sm:top-8"
       >
         <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden>
           <path
@@ -239,10 +239,10 @@ function Lightbox({
             priority
           />
         </div>
-        <figcaption className="mt-5 flex items-center justify-center gap-4 text-sm text-cream-dim">
+        <figcaption className="mt-5 flex items-center justify-center gap-4 text-sm text-white/70">
           <span>{moment.caption}</span>
-          <span aria-hidden className="h-px w-6 bg-white/15" />
-          <span className="font-mono text-xs text-cream-faint">
+          <span aria-hidden className="h-px w-6 bg-white/25" />
+          <span className="font-mono text-xs text-white/45">
             {String(index + 1).padStart(2, "0")} / {COUNT}
           </span>
         </figcaption>
@@ -252,8 +252,16 @@ function Lightbox({
         className="mt-8 flex items-center gap-3"
         onClick={(event) => event.stopPropagation()}
       >
-        <StepButton direction="prev" onClick={() => onStep(index - 1)} />
-        <StepButton direction="next" onClick={() => onStep(index + 1)} />
+        <StepButton
+          direction="prev"
+          tone="onDark"
+          onClick={() => onStep(index - 1)}
+        />
+        <StepButton
+          direction="next"
+          tone="onDark"
+          onClick={() => onStep(index + 1)}
+        />
       </div>
     </motion.div>
   );
@@ -264,9 +272,11 @@ function Lightbox({
 function StepButton({
   direction,
   onClick,
+  tone = "light",
 }: {
   direction: "prev" | "next";
   onClick: () => void;
+  tone?: "light" | "onDark";
 }) {
   const isPrev = direction === "prev";
   return (
@@ -274,7 +284,12 @@ function StepButton({
       type="button"
       onClick={onClick}
       aria-label={isPrev ? "Previous photo" : "Next photo"}
-      className="group flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.03] text-cream backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-gold-500/45 hover:bg-white/[0.07] hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950"
+      className={cn(
+        "group flex h-12 w-12 items-center justify-center rounded-full border backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-900",
+        tone === "onDark"
+          ? "border-white/15 bg-white/[0.06] text-white hover:border-gold-400/60 hover:bg-white/[0.12] hover:text-gold-300"
+          : "border-cream/12 bg-cream/[0.03] text-cream hover:border-gold-500/45 hover:bg-cream/[0.06] hover:text-gold-600",
+      )}
     >
       <svg
         viewBox="0 0 16 16"
@@ -330,7 +345,7 @@ export function PastEvents() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #070718 0%, #0b0b21 44%, #070718 100%)",
+            "linear-gradient(180deg, #f6f3ec 0%, #efeade 44%, #f6f3ec 100%)",
         }}
       />
       <div
@@ -338,7 +353,7 @@ export function PastEvents() {
         className="pointer-events-none absolute left-1/2 top-[14%] h-[44vw] w-[72vw] -translate-x-1/2 animate-breathe blur-[150px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,148,29,0.16), transparent 74%)",
+            "radial-gradient(closest-side, rgba(247,160,70,0.12), transparent 74%)",
         }}
       />
       <div
@@ -346,7 +361,7 @@ export function PastEvents() {
         className="pointer-events-none absolute bottom-[-12%] left-[-8%] h-[42vw] w-[42vw] animate-drift-slow rounded-full opacity-60 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(58,73,201,0.34), transparent 74%)",
+            "radial-gradient(closest-side, rgba(90,110,220,0.16), transparent 74%)",
         }}
       />
 
@@ -367,7 +382,7 @@ export function PastEvents() {
             <Reveal delay={0.14}>
               <Lead>
                 Rooms full of founders who came to build. This is what the last
-                gathering looked like — and the standard we are carrying into
+                gathering looked like and the standard we are carrying into
                 2026.
               </Lead>
             </Reveal>
@@ -390,7 +405,7 @@ export function PastEvents() {
             <StepButton direction="prev" onClick={() => select(active - 1)} />
 
             <p className="font-mono text-sm tracking-[0.08em] text-cream-faint">
-              <span className="text-gold-400">
+              <span className="text-gold-600">
                 {String(active + 1).padStart(2, "0")}
               </span>
               <span className="mx-1.5 text-cream-faint/50">/</span>
@@ -415,10 +430,10 @@ export function PastEvents() {
                 aria-label={moment.caption}
                 onClick={() => select(i)}
                 className={cn(
-                  "h-1 rounded-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-950",
+                  "h-1 rounded-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-900",
                   i === active
-                    ? "w-10 bg-[linear-gradient(90deg,var(--color-gold-300),var(--color-bronze-400))]"
-                    : "w-4 bg-white/15 hover:bg-white/30",
+                    ? "w-10 bg-[linear-gradient(90deg,var(--color-gold-500),var(--color-bronze-500))]"
+                    : "w-4 bg-cream/15 hover:bg-cream/30",
                 )}
               />
             ))}
@@ -427,7 +442,7 @@ export function PastEvents() {
 
         {/* Receipts */}
         <Reveal delay={0.16}>
-          <div className="mt-24 grid gap-px overflow-hidden rounded-panel border border-white/8 bg-white/6 sm:grid-cols-3">
+          <div className="mt-24 grid gap-px overflow-hidden rounded-panel border border-cream/10 bg-cream/8 sm:grid-cols-3">
             {[
               { value: "300+", label: "Entrepreneurs gathered" },
               { value: "15+", label: "Speakers and mentors" },
