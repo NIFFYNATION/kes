@@ -29,6 +29,7 @@ export const EVENT = {
   },
   admission: "Free with registration",
   email: "hello@kingdomentrepreneurssummit.com",
+  phone: "+234 706 785 3362",
   social: {
     instagram: "https://instagram.com",
     linkedin: "https://linkedin.com",

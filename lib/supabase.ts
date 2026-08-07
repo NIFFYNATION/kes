@@ -45,8 +45,8 @@ export function toRegistrationRow(
     full_name: input.fullName,
     email: input.email,
     phone: input.phone,
-    business_name: input.businessName,
-    business_stage: input.businessStage,
+    business_name: input.businessName ?? "",
+    business_stage: input.businessStage ?? "",
     source,
   };
 }

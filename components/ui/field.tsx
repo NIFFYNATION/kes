@@ -62,6 +62,43 @@ export function Field({
   );
 }
 
+/* -------------------------------- Textarea -------------------------------- */
+
+export function TextareaField({
+  label,
+  error,
+  className,
+  rows = 4,
+  ...props
+}: {
+  label: string;
+  error?: string;
+  className?: string;
+} & Omit<ComponentPropsWithoutRef<"textarea">, "className">) {
+  const id = useId();
+  const errorId = `${id}-error`;
+
+  return (
+    <div className={cn("group", className)}>
+      <label
+        htmlFor={id}
+        className={cn(labelClass, "group-focus-within:text-gold-500")}
+      >
+        {label}
+      </label>
+      <textarea
+        id={id}
+        rows={rows}
+        className={cn(controlBase, stateClass(Boolean(error)), "resize-none py-3")}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        {...props}
+      />
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
+    </div>
+  );
+}
+
 /* --------------------------------- Select --------------------------------- */
 
 export function SelectField({

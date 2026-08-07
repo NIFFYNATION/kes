@@ -28,12 +28,18 @@ export function Footer() {
             <p className="mt-5 max-w-sm leading-relaxed text-cream-faint">
               {EVENT.description}
             </p>
+              
             <a
               href={`mailto:${EVENT.email}`}
               className="mt-7 inline-block text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-400 hover:underline"
             >
               {EVENT.email}
             </a>
+          <p
+              className="mt-3 text-sm text-cream-dim underline-offset-4 transition-colors duration-300 hover:text-gold-400 hover:underline"
+            >
+              Tel: {EVENT.phone}
+            </p>
           </div>
 
           {/* Navigate */}

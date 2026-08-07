@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import type { Transporter } from "nodemailer";
+import path from "node:path";
 import { EVENT, BUSINESS_STAGES } from "./constants";
 import type { RegistrationInput } from "./validations";
 
@@ -15,6 +16,12 @@ const user = process.env.GMAIL_USER?.trim();
 
 /** Google displays App Passwords in groups of four; the spaces are cosmetic. */
 const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, "");
+
+/**
+ * Where new-registration alerts go (the event host/admin). Falls back to the
+ * sending mailbox so the host is notified even if ADMIN_EMAIL isn't set.
+ */
+const adminEmail = process.env.ADMIN_EMAIL?.trim() || user;
 
 /**
  * Gmail rewrites `from` to the authenticated mailbox anyway, so the address
@@ -43,6 +50,41 @@ function stageLabel(value: string) {
   return BUSINESS_STAGES.find((s) => s.value === value)?.label ?? value;
 }
 
+/** Combines the optional business name and stage into a single line, or "". */
+function businessSummary(input: RegistrationInput) {
+  return [input.businessName, input.businessStage ? stageLabel(input.businessStage) : ""]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+/**
+ * The KES logo is embedded inline via a CID attachment (referenced as
+ * `cid:kes-logo` in the HTML). This renders reliably across mail clients that
+ * block remote images, unlike a hosted <img src> URL.
+ */
+const LOGO_CID = "kes-logo";
+const LOGO_PATH = path.join(process.cwd(), "public", "keslogo.png");
+
+const logoAttachment = {
+  filename: "keslogo.png",
+  path: LOGO_PATH,
+  cid: LOGO_CID,
+};
+
+/** Inline logo header shared by every email. */
+function logoHeader() {
+  return `
+                <img src="cid:${LOGO_CID}" alt="${EVENT.name}" height="40" style="display:block;height:40px;width:auto;margin:0 0 28px;" />`;
+}
+
+/** Renders a labelled detail row only when the value is present. */
+function detailRow(label: string, value?: string) {
+  if (!value) return "";
+  return `
+                      <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#857f75;font-weight:600;">${label}</p>
+                      <p style="margin:0 0 18px;font-size:15px;color:#f4f0e8;font-weight:600;">${value}</p>`;
+}
+
 function confirmationHtml(input: RegistrationInput) {
   const firstName = input.fullName.split(" ")[0];
 
@@ -59,7 +101,7 @@ function confirmationHtml(input: RegistrationInput) {
         <td align="center">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#131417;border:1px solid rgba(244,240,232,0.08);border-radius:24px;overflow:hidden;">
             <tr>
-              <td style="padding:40px 40px 0;">
+              <td style="padding:40px 40px 0;">${logoHeader()}
                 <p style="margin:0 0 28px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#d4ac63;font-weight:600;">
                   ${EVENT.name} ${EVENT.year} · ${EVENT.theme}
                 </p>
@@ -78,13 +120,7 @@ function confirmationHtml(input: RegistrationInput) {
               <td style="padding:0 40px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#191a1e;border:1px solid rgba(244,240,232,0.07);border-radius:16px;">
                   <tr>
-                    <td style="padding:24px 24px 8px;">
-                      <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#857f75;font-weight:600;">Date</p>
-                      <p style="margin:0 0 18px;font-size:15px;color:#f4f0e8;font-weight:600;">${EVENT.dates.full}</p>
-                      <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#857f75;font-weight:600;">Venue</p>
-                      <p style="margin:0 0 18px;font-size:15px;color:#f4f0e8;font-weight:600;">${EVENT.venue.full}</p>
-                      <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#857f75;font-weight:600;">Registered as</p>
-                      <p style="margin:0 0 24px;font-size:15px;color:#f4f0e8;font-weight:600;">${input.businessName} · ${stageLabel(input.businessStage)}</p>
+                    <td style="padding:24px 24px 8px;">${detailRow("Date", EVENT.dates.full)}${detailRow("Venue", EVENT.venue.full)}${detailRow("Business", businessSummary(input))}
                     </td>
                   </tr>
                 </table>
@@ -124,10 +160,12 @@ function confirmationText(input: RegistrationInput) {
     ``,
     `Date:  ${EVENT.dates.full}`,
     `Venue: ${EVENT.venue.full}`,
-    `Registered as: ${input.businessName} · ${stageLabel(input.businessStage)}`,
+    businessSummary(input) ? `Business: ${businessSummary(input)}` : "",
     ``,
     `Questions? Reply to this email or reach us at ${EVENT.email}.`,
-  ].join("\n");
+  ]
+    .filter((line, i, arr) => line !== "" || arr[i - 1] !== "")
+    .join("\n");
 }
 
 type EmailResult =
@@ -149,6 +187,126 @@ export async function sendConfirmationEmail(
       subject: `Your free seat is reserved — ${EVENT.name} ${EVENT.year}`,
       text: confirmationText(input),
       html: confirmationHtml(input),
+      attachments: [logoAttachment],
+    });
+    return { status: "sent" };
+  } catch (err) {
+    return {
+      status: "error",
+      message: err instanceof Error ? err.message : "Unknown email error",
+    };
+  }
+}
+
+/* ------------------------ Admin / host notification ----------------------- */
+
+function adminNotificationHtml(input: RegistrationInput) {
+  const rows: [string, string][] = [
+    ["Full name", input.fullName],
+    ["Email", input.email],
+    ["Phone", input.phone],
+    ["Coming from", input.location],
+    ["Business", input.businessName ?? ""],
+    ["Stage", input.businessStage ? stageLabel(input.businessStage) : ""],
+    ["Hoping to learn", input.hopeToLearn],
+  ];
+
+  const cells = rows
+    .filter(([, value]) => Boolean(value))
+    .map(
+      ([label, value]) => `
+                  <tr>
+                    <td style="padding:10px 0;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#857f75;font-weight:600;width:120px;vertical-align:top;">${label}</td>
+                    <td style="padding:10px 0;font-size:15px;color:#f4f0e8;font-weight:600;">${value}</td>
+                  </tr>`,
+    )
+    .join("");
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New registration — ${EVENT.name} ${EVENT.year}</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#0a0a0c;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0c;padding:48px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#131417;border:1px solid rgba(244,240,232,0.08);border-radius:24px;overflow:hidden;">
+            <tr>
+              <td style="padding:40px 40px 0;">${logoHeader()}
+                <p style="margin:0 0 20px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#d4ac63;font-weight:600;">
+                  ${EVENT.name} ${EVENT.year} · New registration
+                </p>
+                <h1 style="margin:0 0 24px;font-size:28px;line-height:1.15;letter-spacing:-0.03em;color:#f4f0e8;font-weight:700;">
+                  ${input.fullName} just reserved a seat.
+                </h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 40px 8px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#191a1e;border:1px solid rgba(244,240,232,0.07);border-radius:16px;">
+                  <tr><td style="padding:8px 24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${cells}
+                    </table>
+                  </td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 40px 40px;">
+                <p style="margin:0;font-size:13px;line-height:1.6;color:#857f75;">
+                  Reply to reach ${input.fullName.split(" ")[0]} at
+                  <a href="mailto:${input.email}" style="color:#d4ac63;text-decoration:none;">${input.email}</a>.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function adminNotificationText(input: RegistrationInput) {
+  return [
+    `New registration — ${EVENT.name} ${EVENT.year}`,
+    ``,
+    `Full name:   ${input.fullName}`,
+    `Email:       ${input.email}`,
+    `Phone:       ${input.phone}`,
+    `Coming from: ${input.location}`,
+    input.businessName ? `Business:    ${input.businessName}` : "",
+    input.businessStage ? `Stage:       ${stageLabel(input.businessStage)}` : "",
+    ``,
+    `Hoping to learn:`,
+    input.hopeToLearn,
+  ]
+    .filter((line, i, arr) => line !== "" || arr[i - 1] !== "")
+    .join("\n");
+}
+
+/**
+ * Alerts the event host that someone registered. Uses the registrant's email
+ * as reply-to so the host can respond directly from their inbox.
+ */
+export async function sendAdminNotification(
+  input: RegistrationInput,
+): Promise<EmailResult> {
+  const transport = getTransport();
+  if (!transport || !adminEmail) return { status: "skipped" };
+
+  try {
+    await transport.sendMail({
+      from: FROM,
+      to: adminEmail,
+      replyTo: input.email,
+      subject: `New registration: ${input.fullName} — ${EVENT.name} ${EVENT.year}`,
+      text: adminNotificationText(input),
+      html: adminNotificationHtml(input),
+      attachments: [logoAttachment],
     });
     return { status: "sent" };
   } catch (err) {

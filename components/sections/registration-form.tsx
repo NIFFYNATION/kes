@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Field, SelectField } from "@/components/ui/field";
+import { Field, SelectField, TextareaField } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { BUSINESS_STAGES, EVENT } from "@/lib/constants";
 import {
@@ -17,8 +17,10 @@ const EMPTY = {
   fullName: "",
   email: "",
   phone: "",
+  location: "",
   businessName: "",
   businessStage: "",
+  hopeToLearn: "",
   website: "", // honeypot
 };
 
@@ -182,7 +184,16 @@ export function RegistrationForm() {
           disabled={submitting}
         />
         <Field
-          label="Business or Brand Name"
+          label="Where are you coming from for the summit?"
+          placeholder="City, state or country"
+          autoComplete="address-level2"
+          value={values.location}
+          onChange={(e) => set("location")(e.target.value)}
+          error={errors.location}
+          disabled={submitting}
+        />
+        <Field
+          label="Business or Brand Name (optional)"
           placeholder="Your company or brand"
           autoComplete="organization"
           value={values.businessName}
@@ -191,12 +202,20 @@ export function RegistrationForm() {
           disabled={submitting}
         />
         <SelectField
-          label="Business Stage"
+          label="Business Stage (optional)"
           options={BUSINESS_STAGES}
           placeholder="Select your stage"
           value={values.businessStage}
           onChange={(e) => set("businessStage")(e.target.value)}
           error={errors.businessStage}
+          disabled={submitting}
+        />
+        <TextareaField
+          label="What do you hope to learn at the summit?"
+          placeholder="Share what you're hoping to take away…"
+          value={values.hopeToLearn}
+          onChange={(e) => set("hopeToLearn")(e.target.value)}
+          error={errors.hopeToLearn}
           disabled={submitting}
         />
 

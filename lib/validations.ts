@@ -31,11 +31,25 @@ export const registrationSchema = z.object({
   businessName: z
     .string()
     .trim()
-    .min(2, "Please enter your business name.")
-    .max(100, "That business name is a little too long."),
-  businessStage: z.enum(stageValues, {
-    message: "Please select your business stage.",
-  }),
+    .max(100, "That business name is a little too long.")
+    .optional()
+    .or(z.literal("")),
+  businessStage: z
+    .enum(stageValues, {
+      message: "Please select your business stage.",
+    })
+    .optional()
+    .or(z.literal("")),
+  location: z
+    .string()
+    .trim()
+    .min(2, "Please tell us where you're coming from.")
+    .max(120, "That's a little too long."),
+  hopeToLearn: z
+    .string()
+    .trim()
+    .min(3, "Please share what you hope to learn.")
+    .max(500, "Please keep this under 500 characters."),
   /** Honeypot — must stay empty. Bots fill it in. */
   website: z.string().max(0).optional().or(z.literal("")),
 });

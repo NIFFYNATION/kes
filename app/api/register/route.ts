@@ -5,7 +5,7 @@ import {
   type FieldErrors,
 } from "@/lib/validations";
 import { saveRegistration } from "@/lib/supabase";
-import { sendConfirmationEmail } from "@/lib/mailer";
+import { sendConfirmationEmail, sendAdminNotification } from "@/lib/mailer";
 
 /** Registrations are user submissions — never cache this route. */
 export const dynamic = "force-dynamic";
@@ -104,14 +104,26 @@ export async function POST(request: Request) {
     );
   }
 
-  // Email must never block a successful registration.
-  const email = await sendConfirmationEmail(data);
+  // Emails must never block a successful registration. Send the registrant's
+  // confirmation and the host's alert concurrently.
+  const [email, adminAlert] = await Promise.all([
+    sendConfirmationEmail(data),
+    sendAdminNotification(data),
+  ]);
   if (email.status === "error") {
     console.error("[register] mailer:", email.message);
   }
   if (email.status === "skipped") {
     console.warn(
       "[register] Gmail not configured — confirmation email not sent.",
+    );
+  }
+  if (adminAlert.status === "error") {
+    console.error("[register] admin notification:", adminAlert.message);
+  }
+  if (adminAlert.status === "skipped") {
+    console.warn(
+      "[register] Gmail not configured — admin notification not sent.",
     );
   }
 
