@@ -23,11 +23,16 @@ export function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500 backdrop-blur-xl border-b border-cream/8 shadow-lift",
         scrolled
-          ? "bg-void backdrop-blur-xl border-b border-cream/8 shadow-lift"
+          ? "bg-[#f6f3ec] bg-[radial-gradient(130%_100%_at_50%_0%,rgba(90,110,220,0.14)_0%,transparent_62%),linear-gradient(180deg,#f6f3ec,#e9e3f2_48%,#f6f3ec)] backdrop-blur-xl border-b border-cream/8 shadow-lift"
           : "bg-transparent",
       )}
+
+        // style={{
+        //   background:
+        //     "radial-gradient(130% 100% at 50% 0%, rgba(90,110,220,0.14) 0%, transparent 62%), linear-gradient(180deg, #f6f3ec, #e9e3f2 48%, #f6f3ec)",
+        // }}
     >
       <div className="shell">
         <div className="flex h-20 items-center justify-between lg:h-24">
