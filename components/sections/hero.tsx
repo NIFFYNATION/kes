@@ -1,306 +1,336 @@
 "use client";
 
 import Image from "next/image";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from "motion/react";
-import { useState, type MouseEvent as ReactMouseEvent } from "react";
-import { AmbientLight } from "@/components/animations/ambient-light";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { EVENT } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const AUTOPLAY_MS = 8000;
 
-const STORIES = [
+const SLIDES = [
   {
-    label: "Influence",
-    title: "Own the room.",
-    copy: "Build the clarity and credibility that make people lean in.",
+    image: encodeURI("/pastEvents/KES 3 (18).jpg"),
+    alt: "A Kingdom Entrepreneurs Summit speaker teaching from the stage",
+    eyebrow: "The 2026 theme",
+    title: "The Sovereign",
+    accent: "Entrepreneur.",
+    description:
+      "A defining gathering for faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create what lasts.",
+    position: "50% 42%",
   },
   {
-    label: "Audacity",
-    title: "Move with conviction.",
-    copy: "Make courageous decisions before applause or certainty arrives.",
+    image: encodeURI("/pastEvents/KES 3 (51).jpg"),
+    alt: "A panel of entrepreneurs sharing ideas at a previous KES gathering",
+    eyebrow: "Influence · Audacity · Legacy",
+    title: "Build with",
+    accent: "conviction.",
+    description:
+      "Step into a room designed to sharpen your thinking, strengthen your leadership, and move your vision forward.",
+    position: "50% 42%",
   },
   {
-    label: "Legacy",
-    title: "Build beyond profit.",
-    copy: "Create principles, people, and enterprises that outlive the moment.",
+    image: encodeURI("/pastEvents/KES 3 (165).jpg"),
+    alt: "Entrepreneurs listening to a speaker during a Kingdom Entrepreneurs Summit session",
+    eyebrow: "One room. One consequential day.",
+    title: "Turn calling",
+    accent: "into legacy.",
+    description:
+      "Meet builders who understand that enterprise is more than profit—it is influence, stewardship, and impact.",
+    position: "50% 46%",
   },
 ] as const;
 
-function AnimatedLine({
-  text,
-  className,
-  delay = 0,
-}: {
-  text: string;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  const words = text.split(" ");
+const EVENT_START = new Date(`${EVENT.dates.iso}T09:00:00+01:00`).getTime();
 
-  if (reduce) {
-    return <span className={cn("block", className)}>{text}</span>;
-  }
+type Countdown = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
+const EMPTY_COUNTDOWN: Countdown = {
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+};
+
+function getCountdown(): Countdown {
+  const distance = Math.max(0, EVENT_START - Date.now());
+
+  return {
+    days: Math.floor(distance / 86_400_000),
+    hours: Math.floor((distance / 3_600_000) % 24),
+    minutes: Math.floor((distance / 60_000) % 60),
+    seconds: Math.floor((distance / 1_000) % 60),
+  };
+}
+
+function CountdownClock({ countdown }: { countdown: Countdown }) {
+  const units = [
+    { label: "Days", value: countdown.days },
+    { label: "Hours", value: countdown.hours },
+    { label: "Minutes", value: countdown.minutes },
+    { label: "Seconds", value: countdown.seconds },
+  ];
 
   return (
-    <motion.span
-      className={cn("block", className)}
-      initial="hidden"
-      animate="show"
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: 0.07, delayChildren: delay } },
-      }}
+    <div
+      className="mx-auto mt-8 grid w-full max-w-2xl grid-cols-4 overflow-hidden rounded-2xl border border-white/15 bg-charcoal-950/52 backdrop-blur-md"
+      aria-label="Countdown to the summit"
     >
-      {words.map((word, index) => (
-        <span
-          key={`${word}-${index}`}
-          className="inline-block overflow-hidden pb-[0.08em] align-bottom"
+      {units.map((unit, index) => (
+        <div
+          key={unit.label}
+          className={`px-2 py-4 text-center sm:px-5 sm:py-5 ${
+            index > 0 ? "border-l border-white/12" : ""
+          }`}
         >
-          <motion.span
-            className="inline-block"
-            variants={{
-              hidden: { y: "110%" },
-              show: {
-                y: "0%",
-                transition: { duration: 0.95, ease: EASE },
-              },
-            }}
-          >
-            {word}
-            {index < words.length - 1 ? "\u00A0" : ""}
-          </motion.span>
-        </span>
+          <p className="text-2xl font-bold tabular-nums tracking-[-0.04em] text-white sm:text-4xl">
+            {String(unit.value).padStart(2, "0")}
+          </p>
+          <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-gold-300 sm:text-sm">
+            {unit.label}
+          </p>
+        </div>
       ))}
-    </motion.span>
+    </div>
+  );
+}
+
+function EventFact({
+  number,
+  label,
+  children,
+}: {
+  number: string;
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex min-h-24 items-center gap-4 px-5 py-5 sm:px-7 lg:min-h-28 lg:px-8">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gold-300/30 bg-gold-400/10 text-sm font-bold text-gold-300">
+        {number}
+      </span>
+      <div>
+        <p className="text-label uppercase text-gold-300">{label}</p>
+        <p className="mt-1 text-base font-semibold leading-6 text-white sm:text-lg">
+          {children}
+        </p>
+      </div>
+    </div>
   );
 }
 
 export function Hero() {
   const reduce = useReducedMotion();
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-4, 4]), {
-    stiffness: 170,
-    damping: 24,
-  });
-  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [4, -4]), {
-    stiffness: 170,
-    damping: 24,
-  });
-  const [activeStory, setActiveStory] = useState(0);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [interacting, setInteracting] = useState(false);
+  const [countdown, setCountdown] = useState<Countdown>(EMPTY_COUNTDOWN);
 
-  function onPointerMove(event: ReactMouseEvent<HTMLDivElement>) {
-    if (reduce) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
-    pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
-  }
+  const select = useCallback((next: number) => {
+    setActive(((next % SLIDES.length) + SLIDES.length) % SLIDES.length);
+  }, []);
 
-  function resetPointer() {
-    pointerX.set(0);
-    pointerY.set(0);
-  }
+  useEffect(() => {
+    const update = () => setCountdown(getCountdown());
+    update();
+    const timer = window.setInterval(update, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
-  const fade = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 22 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.9, delay, ease: EASE },
-        };
+  useEffect(() => {
+    if (reduce || paused || interacting) return;
+    const timer = window.setInterval(
+      () => setActive((current) => (current + 1) % SLIDES.length),
+      AUTOPLAY_MS,
+    );
+    return () => window.clearInterval(timer);
+  }, [interacting, paused, reduce]);
 
-  const story = STORIES[activeStory];
+  const slide = SLIDES[active];
 
   return (
     <section
       id="top"
-      className="relative isolate overflow-hidden bg-charcoal-950 pb-20 pt-28 lg:pb-28 lg:pt-36"
+      className="relative isolate overflow-hidden bg-charcoal-950"
+      aria-roledescription="carousel"
+      aria-label="Kingdom Entrepreneurs Summit highlights"
+      onMouseEnter={() => setInteracting(true)}
+      onMouseLeave={() => setInteracting(false)}
+      onFocusCapture={() => setInteracting(true)}
+      onBlurCapture={() => setInteracting(false)}
     >
-      <AmbientLight variant="hero" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.12]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          maskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,.8), transparent 82%)",
-        }}
-      />
+      <div className="absolute inset-0">
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.div
+            key={slide.image}
+            className="absolute inset-0"
+            initial={reduce ? false : { opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduce ? undefined : { opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 1.1, ease: EASE }}
+          >
+            <Image
+              src={slide.image}
+              alt={slide.alt}
+              fill
+              preload={active === 0}
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: slide.position }}
+            />
+          </motion.div>
+        </AnimatePresence>
 
-      <div className="shell relative z-10">
-        <div className="grid items-center gap-16 lg:grid-cols-12 lg:gap-12 xl:gap-20">
-          <div className="lg:col-span-6">
-            <motion.div {...fade(0.04)}>
-              <span className="inline-flex items-center gap-3 rounded-full border border-gold-400/35 bg-gold-400/10 px-4 py-2.5 text-label uppercase text-gold-300 backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-70" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-gold-400" />
-                </span>
-                {EVENT.venue.cityShort} · {EVENT.dates.short} · {EVENT.year}
-              </span>
-            </motion.div>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,22,51,0.9)_0%,rgba(3,22,51,0.62)_48%,rgba(3,22,51,0.86)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,10,24,0.36)_0%,rgba(3,22,51,0.14)_40%,rgba(2,10,24,0.84)_100%)]" />
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+            maskImage: "linear-gradient(to bottom, black, transparent 78%)",
+          }}
+        />
+      </div>
 
-            <h1 className="mt-8 text-[clamp(3.35rem,6.6vw,6.8rem)] font-bold leading-[0.88] tracking-[-0.055em]">
-              <span className="sr-only">
-                {EVENT.theme} — {EVENT.name} {EVENT.year}
-              </span>
-              <span aria-hidden>
-                <AnimatedLine text="The Sovereign" className="text-white" delay={0.12} />
-                <AnimatedLine
-                  text="Entrepreneur."
-                  className="text-gold-gradient"
-                  delay={0.24}
-                />
-              </span>
-            </h1>
+      <button
+        type="button"
+        onClick={() => select(active - 1)}
+        aria-label="Show previous summit highlight"
+        className="absolute left-3 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-charcoal-950/60 text-3xl text-white backdrop-blur-md transition hover:border-gold-300 hover:bg-gold-400 hover:text-charcoal-950 sm:flex lg:left-7"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        onClick={() => select(active + 1)}
+        aria-label="Show next summit highlight"
+        className="absolute right-3 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-charcoal-950/60 text-3xl text-white backdrop-blur-md transition hover:border-gold-300 hover:bg-gold-400 hover:text-charcoal-950 sm:flex lg:right-7"
+      >
+        ›
+      </button>
 
-            <motion.p
-              {...fade(0.48)}
-              className="mt-8 text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl"
-            >
-              Influence. Audacity. Legacy.
-            </motion.p>
+      <div className="relative z-20 flex min-h-[calc(100svh-7rem)] items-center px-0 pb-10 pt-32 sm:pb-12 sm:pt-36 lg:min-h-[calc(100svh-7rem)] lg:pb-14">
+        <div className="shell">
+          <div className="mx-auto max-w-5xl text-center">
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-px w-10 bg-gold-400" />
+              <p className="text-label uppercase text-gold-300">
+                {EVENT.name} · {EVENT.year}
+              </p>
+              <span className="h-px w-10 bg-gold-400" />
+            </div>
 
-            <motion.p
-              {...fade(0.56)}
-              className="mt-6 max-w-xl text-lg leading-8 text-cream-dim sm:text-xl"
-            >
-              A free gathering for faith-driven entrepreneurs ready to build
-              with purpose, lead with conviction, and create what lasts.
-            </motion.p>
-
-            <motion.div
-              {...fade(0.66)}
-              className="mt-9 grid max-w-xl gap-5 border-y border-white/12 py-6 sm:grid-cols-2"
-            >
-              <div>
-                <p className="text-label uppercase text-gold-300">Date</p>
-                <p className="mt-2 text-base font-semibold text-white sm:text-lg">
-                  {EVENT.dates.label}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slide.title}
+                initial={reduce ? false : { opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduce ? undefined : { opacity: 0, y: -18 }}
+                transition={{ duration: reduce ? 0 : 0.55, ease: EASE }}
+                className="mt-6"
+              >
+                <p className="text-sm font-semibold uppercase tracking-[0.17em] text-white/80 sm:text-base">
+                  {slide.eyebrow}
                 </p>
-              </div>
-              <div>
-                <p className="text-label uppercase text-gold-300">Venue</p>
-                <p className="mt-2 text-base font-semibold text-white sm:text-lg">
-                  {EVENT.venue.name}, {EVENT.venue.cityShort}
+                <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[0.88] tracking-[-0.06em] text-white">
+                  <span className="block">{slide.title}</span>
+                  <span className="block text-gold-gradient">{slide.accent}</span>
+                </h1>
+                <p className="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-cream-soft sm:text-xl sm:leading-9">
+                  {slide.description}
                 </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </AnimatePresence>
 
-            <motion.div
-              {...fade(0.76)}
-              className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
-            >
+            <CountdownClock countdown={countdown} />
+
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button href="#register" variant="gold" size="lg">
                 Claim Your Free Seat
                 <span aria-hidden className="text-lg transition-transform group-hover:translate-x-1">
                   →
                 </span>
               </Button>
-              <Button href="#sovereign" variant="ghost" size="lg">
-                Explore the Summit
+              <Button
+                href="#sovereign"
+                variant="ghost"
+                size="lg"
+                className="border-white/30 bg-charcoal-950/35 text-white hover:bg-white/10"
+              >
+                Discover the Summit
               </Button>
-            </motion.div>
-          </div>
+            </div>
 
-          <motion.div
-            {...fade(0.34)}
-            className="relative lg:col-span-6"
-            onMouseMove={onPointerMove}
-            onMouseLeave={resetPointer}
-          >
-            <div
-              aria-hidden
-              className="absolute -inset-8 rounded-[3rem] bg-gold-400/15 blur-3xl"
-            />
-            <motion.div
-              style={reduce ? undefined : { rotateX, rotateY, transformPerspective: 1200 }}
-              className="relative overflow-hidden rounded-[2rem] border border-gold-300/35 bg-charcoal-900 shadow-float"
-            >
-              <div className="relative aspect-[4/3] min-h-[30rem] lg:min-h-[39rem]">
-                <Image
-                  src="/hero-entrepreneur-alt.jpg"
-                  alt="A Black entrepreneur working with focus in a modern office"
-                  fill
-                  preload
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-[42%_center] saturate-[0.82] contrast-[1.04]"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,22,51,0.06)_20%,rgba(3,22,51,0.28)_58%,rgba(3,22,51,0.97)_100%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(3,22,51,0.28),transparent_58%)] mix-blend-multiply" />
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => select(active - 1)}
+                aria-label="Previous highlight"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-charcoal-950/45 text-2xl text-white sm:hidden"
+              >
+                ‹
+              </button>
 
-                <div className="absolute left-5 top-5 rounded-full border border-white/25 bg-charcoal-950/75 px-4 py-2 text-label uppercase text-white backdrop-blur-md sm:left-7 sm:top-7">
-                  KES · Edition 04
-                </div>
-                <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full border border-gold-300/55 bg-gold-400/15 text-base font-bold text-gold-200 backdrop-blur-md sm:right-7 sm:top-7 sm:h-20 sm:w-20 sm:text-lg">
-                  2026
-                </div>
-
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={story.label}
-                      initial={reduce ? false : { opacity: 0, y: 14 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={reduce ? undefined : { opacity: 0, y: -10 }}
-                      transition={{ duration: 0.35, ease: EASE }}
-                      className="max-w-md"
-                    >
-                      <p className="text-label uppercase text-gold-300">
-                        {story.label}
-                      </p>
-                      <p className="mt-2 text-3xl font-bold tracking-[-0.04em] text-white sm:text-4xl">
-                        {story.title}
-                      </p>
-                      <p className="mt-3 text-base leading-7 text-cream-dim sm:text-lg">
-                        {story.copy}
-                      </p>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  <div
-                    className="mt-7 grid grid-cols-3 gap-2"
-                    role="tablist"
-                    aria-label="Summit pillars"
-                  >
-                    {STORIES.map((item, index) => (
-                      <button
-                        key={item.label}
-                        type="button"
-                        role="tab"
-                        aria-selected={activeStory === index}
-                        onClick={() => setActiveStory(index)}
-                        className={cn(
-                          "min-h-12 rounded-xl border px-2 text-sm font-semibold transition-all duration-300 sm:text-base",
-                          activeStory === index
-                            ? "border-gold-300 bg-gold-400 text-charcoal-950 shadow-gold"
-                            : "border-white/18 bg-white/8 text-white hover:border-gold-300/60 hover:bg-white/12",
-                        )}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+              <div className="flex items-center gap-2" role="tablist" aria-label="Summit highlights">
+                {SLIDES.map((item, index) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    role="tab"
+                    aria-selected={index === active}
+                    aria-label={`Show highlight ${index + 1}: ${item.title} ${item.accent}`}
+                    onClick={() => select(index)}
+                    className={`h-2.5 rounded-full transition-all duration-500 ${
+                      index === active
+                        ? "w-10 bg-gold-400"
+                        : "w-2.5 bg-white/45 hover:bg-white/75"
+                    }`}
+                  />
+                ))}
               </div>
-            </motion.div>
-            <p className="mt-4 text-center text-sm leading-6 text-cream-faint">
-              Move across the image and choose a pillar to explore the theme.
-            </p>
-          </motion.div>
+
+              <button
+                type="button"
+                onClick={() => select(active + 1)}
+                aria-label="Next highlight"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-charcoal-950/45 text-2xl text-white sm:hidden"
+              >
+                ›
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPaused((current) => !current)}
+                className="ml-2 min-h-11 rounded-full border border-white/20 bg-charcoal-950/45 px-4 text-sm font-semibold text-white transition hover:border-gold-300 hover:text-gold-300"
+                aria-label={paused ? "Resume automatic slides" : "Pause automatic slides"}
+              >
+                {paused ? "Play" : "Pause"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-20 border-t border-gold-300/25 bg-charcoal-950/94 backdrop-blur-xl">
+        <div className="shell grid divide-y divide-white/10 md:grid-cols-3 md:divide-x md:divide-y-0">
+          <EventFact number="01" label="Event date">
+            {EVENT.dates.full}
+          </EventFact>
+          <EventFact number="02" label="Event location">
+            {EVENT.venue.name}, {EVENT.venue.cityShort}
+          </EventFact>
+          <EventFact number="03" label="Admission">
+            Free with registration
+          </EventFact>
         </div>
       </div>
     </section>
