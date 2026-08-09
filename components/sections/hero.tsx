@@ -310,7 +310,7 @@ export function Hero() {
               <button
                 type="button"
                 onClick={() => setPaused((current) => !current)}
-                className="ml-2 min-h-11 rounded-full border border-white/20 bg-charcoal-950/45 px-4 text-sm font-semibold text-white transition hover:border-gold-300 hover:text-gold-300"
+                className="hidden md:block ml-2 min-h-11 rounded-full border border-white/20 bg-charcoal-950/45 px-4 text-sm font-semibold text-white transition hover:border-gold-300 hover:text-gold-300"
                 aria-label={paused ? "Resume automatic slides" : "Pause automatic slides"}
               >
                 {paused ? "Play" : "Pause"}
@@ -320,7 +320,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-20 border-t border-gold-300/25 bg-charcoal-950/94 backdrop-blur-xl">
+      {/* <div className="relative z-20 border-t border-gold-300/25 bg-charcoal-950/94 backdrop-blur-xl">
         <div className="shell grid divide-y divide-white/10 md:grid-cols-3 md:divide-x md:divide-y-0">
           <EventFact number="01" label="Event date">
             {EVENT.dates.full}
@@ -332,7 +332,7 @@ export function Hero() {
             Free with registration
           </EventFact>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
