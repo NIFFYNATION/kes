@@ -145,7 +145,7 @@ export function RegistrationForm() {
         <h2 className="text-[1.75rem] font-bold leading-tight tracking-[-0.03em] text-cream">
           Reserve your free seat
         </h2>
-        <p className="mt-2.5 text-sm leading-relaxed text-cream-dim">
+        <p className="mt-2.5 text-base leading-relaxed text-cream-dim">
           {EVENT.admission}. Confirmation is sent instantly by email.
         </p>
       </header>
@@ -258,7 +258,7 @@ export function RegistrationForm() {
           )}
         </Button>
 
-        <p className="pt-1 text-center text-xs leading-relaxed text-cream-faint">
+        <p className="pt-1 text-center text-sm leading-relaxed text-cream-faint">
           By registering, you agree to receive summit updates by email or SMS.
         </p>
       </form>

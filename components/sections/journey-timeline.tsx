@@ -23,13 +23,13 @@ export function JourneyTimeline() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="journey" className="relative overflow-hidden">
+    <section id="journey" className="theme-light relative overflow-hidden bg-white">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #f6f3ec 0%, #efeade 44%, #f6f3ec 100%)",
+            "linear-gradient(180deg, #ffffff 0%, #eef3f9 46%, #ffffff 100%)",
         }}
       />
       {/* Warm light pooling under the current year */}
@@ -38,7 +38,7 @@ export function JourneyTimeline() {
         className="pointer-events-none absolute right-[6%] top-1/2 h-[38vw] w-[46vw] animate-breathe blur-[140px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,160,70,0.14), transparent 74%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.14), transparent 74%)",
         }}
       />
 
@@ -119,7 +119,7 @@ export function JourneyTimeline() {
                             className="absolute h-14 w-14 animate-glow-pulse rounded-full blur-lg"
                             style={{
                               background:
-                                "radial-gradient(closest-side, rgba(247,160,70,0.6), transparent 72%)",
+                                "radial-gradient(closest-side, rgba(212,167,44,0.56), transparent 72%)",
                             }}
                           />
                         </>
@@ -128,7 +128,7 @@ export function JourneyTimeline() {
                         className={cn(
                           "relative z-10 block rounded-full transition-all duration-700",
                           m.current
-                            ? "h-3.5 w-3.5 bg-gold-500 shadow-[0_0_18px_4px_rgba(240,150,40,0.4)]"
+                            ? "h-3.5 w-3.5 bg-gold-500 shadow-[0_0_18px_4px_rgba(212,167,44,0.38)]"
                             : "h-2.5 w-2.5 bg-charcoal-600 ring-4 ring-charcoal-900",
                         )}
                       />

@@ -14,7 +14,7 @@ const sizes: Record<Size, string> = {
 
 const variants: Record<Variant, string> = {
   gold: cn(
-    "text-white shadow-gold",
+    "text-[#031633] shadow-gold",
     "bg-[linear-gradient(135deg,var(--color-gold-400)_0%,var(--color-gold-500)_46%,var(--color-bronze-500)_100%)]",
     "hover:-translate-y-0.5 hover:shadow-gold-lg active:translate-y-0 active:scale-[0.985]",
   ),

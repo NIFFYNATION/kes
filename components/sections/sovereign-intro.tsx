@@ -19,14 +19,14 @@ const DEFINITIONS = [
 
 export function SovereignIntro() {
   return (
-    <section id="sovereign" className="relative overflow-hidden">
+    <section id="sovereign" className="theme-light relative overflow-hidden bg-white">
       {/* ---------- Layered gradient transition out of the hero ---------- */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #f6f3ec 0%, #efeade 28%, #e9e3f2 58%, #efeade 82%, #f6f3ec 100%)",
+            "linear-gradient(180deg, #ffffff 0%, #f5f7fb 30%, #edf2f8 58%, #f7f9fc 82%, #ffffff 100%)",
         }}
       />
       <div
@@ -34,7 +34,7 @@ export function SovereignIntro() {
         className="pointer-events-none absolute -top-[10%] right-[-12%] h-[52vw] w-[52vw] animate-drift-slower rounded-full opacity-60 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,160,70,0.20), rgba(226,120,40,0.08) 52%, transparent 76%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.18), rgba(233,195,75,0.07) 52%, transparent 76%)",
         }}
       />
       <div
@@ -42,7 +42,7 @@ export function SovereignIntro() {
         className="pointer-events-none absolute bottom-[-14%] left-[-10%] h-[46vw] w-[46vw] animate-drift-slow rounded-full opacity-55 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(90,110,220,0.18), transparent 74%)",
+            "radial-gradient(closest-side, rgba(23,66,126,0.12), transparent 74%)",
         }}
       />
       {/* Grain to keep the layered gradients from banding */}

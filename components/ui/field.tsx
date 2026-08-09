@@ -8,7 +8,7 @@ const labelClass =
   "mb-2 block text-label uppercase text-cream-faint transition-colors duration-300";
 
 const controlBase = cn(
-  "w-full rounded-field border bg-charcoal-900 px-4 text-[0.9375rem] text-cream",
+  "w-full rounded-field border bg-charcoal-900 px-4 text-base text-cream",
   "placeholder:text-cream-faint/70 transition-all duration-300",
   "focus:outline-none focus:ring-0",
 );
@@ -21,7 +21,7 @@ function stateClass(hasError: boolean) {
 
 function ErrorText({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <p id={id} role="alert" className="mt-1.5 text-xs text-red-600">
+    <p id={id} role="alert" className="mt-1.5 text-sm text-red-600">
       {children}
     </p>
   );

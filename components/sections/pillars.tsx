@@ -91,7 +91,7 @@ function PillarCard({
         className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(340px circle at var(--mx) var(--my), rgba(240,150,40,0.14), transparent 62%)",
+            "radial-gradient(340px circle at var(--mx) var(--my), rgba(233,195,75,0.18), transparent 62%)",
         }}
       />
       {/* Gradient glow bleeding up from the base */}
@@ -100,13 +100,13 @@ function PillarCard({
         className="pointer-events-none absolute inset-x-0 -bottom-24 -z-10 h-40 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,160,70,0.24), transparent 74%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.26), transparent 74%)",
         }}
       />
       {/* Luminous top edge — the VisionOS tell */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(20,21,31,0.12),transparent)] transition-opacity duration-700 group-hover:bg-[linear-gradient(90deg,transparent,var(--color-gold-500),transparent)]"
+        className="pointer-events-none absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] transition-opacity duration-700 group-hover:bg-[linear-gradient(90deg,transparent,var(--color-gold-400),transparent)]"
       />
       {children}
     </motion.article>
@@ -115,14 +115,14 @@ function PillarCard({
 
 export function Pillars() {
   return (
-    <section id="pillars" className="relative overflow-hidden">
+    <section id="pillars" className="relative overflow-hidden bg-charcoal-950">
       {/* Gradient bed */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #f6f3ec 0%, #efeade 40%, #efeade 62%, #f6f3ec 100%)",
+            "linear-gradient(180deg, #031633 0%, #061d45 42%, #08224a 64%, #031633 100%)",
         }}
       />
       <div
@@ -130,7 +130,7 @@ export function Pillars() {
         className="pointer-events-none absolute left-1/2 top-[18%] h-[42vw] w-[78vw] -translate-x-1/2 animate-breathe blur-[140px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,160,70,0.12), transparent 72%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.14), transparent 72%)",
         }}
       />
 
@@ -162,7 +162,7 @@ export function Pillars() {
                   className="absolute inset-0 -z-10 rounded-full opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-100"
                   style={{
                     background:
-                      "radial-gradient(closest-side, rgba(240,150,40,0.35), transparent 72%)",
+                      "radial-gradient(closest-side, rgba(233,195,75,0.34), transparent 72%)",
                   }}
                 />
                 <span className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-card border border-cream/10 bg-cream/[0.03] transition-colors duration-700 group-hover:border-gold-500/35">

@@ -1,6 +1,6 @@
 /**
  * Single source of truth for event facts used across sections.
- * Keeps the Hero, Event Details, Footer and metadata in sync.
+ * Keeps the Hero, registration, Footer and metadata in sync.
  */
 
 export const EVENT = {
@@ -46,9 +46,8 @@ export const BUSINESS_STAGES = [
 ] as const;
 
 export const NAV_LINKS = [
-  { label: "The Sovereign Entrepreneur", href: "#sovereign" },
+  { label: "The Summit", href: "#sovereign" },
   { label: "Pillars", href: "#pillars" },
   { label: "Journey", href: "#journey" },
   { label: "Past Events", href: "#past-events" },
-  { label: "Details", href: "#details" },
 ] as const;

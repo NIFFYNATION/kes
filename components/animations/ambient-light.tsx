@@ -22,8 +22,8 @@ export function AmbientLight({
         style={{
           background:
             variant === "royal"
-              ? "radial-gradient(120% 90% at 50% 0%, #e7e9fb 0%, transparent 58%), linear-gradient(180deg, #f6f3ec 0%, #efeade 100%)"
-              : "linear-gradient(180deg, #f6f3ec 0%, #fbf8f1 46%, #f2ece0 100%)",
+              ? "radial-gradient(120% 90% at 50% 0%, #123a73 0%, transparent 58%), linear-gradient(180deg, #031633 0%, #061d45 100%)"
+              : "linear-gradient(180deg, #031633 0%, #061d45 52%, #020d21 100%)",
         }}
       />
 
@@ -34,7 +34,7 @@ export function AmbientLight({
             className="absolute -top-[26%] -left-[14%] h-[62vw] w-[62vw] animate-drift-slow rounded-full opacity-70 blur-[110px]"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(247,160,70,0.24), rgba(226,120,40,0.10) 55%, transparent 78%)",
+                "radial-gradient(closest-side, rgba(233,195,75,0.26), rgba(212,167,44,0.10) 55%, transparent 78%)",
             }}
           />
           {/* KES orange core — the focal light behind the headline */}
@@ -42,7 +42,7 @@ export function AmbientLight({
             className="absolute top-[8%] left-[26%] h-[42vw] w-[42vw] animate-breathe rounded-full blur-[100px]"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(240,150,40,0.22), rgba(240,150,40,0.06) 52%, transparent 76%)",
+                "radial-gradient(closest-side, rgba(233,195,75,0.20), rgba(212,167,44,0.05) 52%, transparent 76%)",
             }}
           />
           {/* Royal blue counterweight — lower right */}
@@ -50,7 +50,7 @@ export function AmbientLight({
             className="absolute -bottom-[24%] -right-[10%] h-[56vw] w-[56vw] animate-drift-slower rounded-full opacity-70 blur-[120px]"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(90,110,220,0.24), rgba(80,100,200,0.10) 55%, transparent 78%)",
+                "radial-gradient(closest-side, rgba(47,95,159,0.34), rgba(23,66,126,0.14) 55%, transparent 78%)",
             }}
           />
           {/* Sweeping light ribbon */}
@@ -58,7 +58,7 @@ export function AmbientLight({
             className="absolute top-[34%] -left-[10%] h-[34vw] w-[120%] animate-drift-slower opacity-45 blur-[90px]"
             style={{
               background:
-                "linear-gradient(102deg, transparent 0%, rgba(247,160,70,0.12) 34%, rgba(90,110,220,0.10) 62%, transparent 88%)",
+                "linear-gradient(102deg, transparent 0%, rgba(233,195,75,0.12) 34%, rgba(92,132,196,0.10) 62%, transparent 88%)",
               transform: "rotate(-7deg)",
             }}
           />
@@ -71,14 +71,14 @@ export function AmbientLight({
             className="absolute -top-[18%] right-[4%] h-[46vw] w-[46vw] animate-drift-slower rounded-full opacity-55 blur-[120px]"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(247,160,70,0.16), transparent 72%)",
+                "radial-gradient(closest-side, rgba(233,195,75,0.16), transparent 72%)",
             }}
           />
           <div
             className="absolute -bottom-[20%] -left-[8%] h-[44vw] w-[44vw] animate-drift-slow rounded-full opacity-50 blur-[120px]"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(90,110,220,0.18), transparent 72%)",
+                "radial-gradient(closest-side, rgba(47,95,159,0.24), transparent 72%)",
             }}
           />
         </>
@@ -98,7 +98,7 @@ export function AmbientLight({
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(110% 80% at 50% 42%, transparent 48%, rgba(120,96,54,0.06) 80%, rgba(120,96,54,0.12) 100%)",
+            "radial-gradient(110% 80% at 50% 42%, transparent 48%, rgba(0,8,28,0.12) 80%, rgba(0,8,28,0.3) 100%)",
         }}
       />
     </div>

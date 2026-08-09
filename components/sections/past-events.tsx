@@ -338,14 +338,14 @@ export function PastEvents() {
   }, [reduce, hovering, lightbox]);
 
   return (
-    <section id="past-events" className="relative overflow-hidden">
+    <section id="past-events" className="theme-light relative overflow-hidden bg-white">
       {/* Atmosphere */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #f6f3ec 0%, #efeade 44%, #f6f3ec 100%)",
+            "linear-gradient(180deg, #ffffff 0%, #eef3f9 44%, #ffffff 100%)",
         }}
       />
       <div
@@ -353,7 +353,7 @@ export function PastEvents() {
         className="pointer-events-none absolute left-1/2 top-[14%] h-[44vw] w-[72vw] -translate-x-1/2 animate-breathe blur-[150px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(247,160,70,0.12), transparent 74%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.13), transparent 74%)",
         }}
       />
       <div
@@ -361,7 +361,7 @@ export function PastEvents() {
         className="pointer-events-none absolute bottom-[-12%] left-[-8%] h-[42vw] w-[42vw] animate-drift-slow rounded-full opacity-60 blur-[130px]"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(90,110,220,0.16), transparent 74%)",
+            "radial-gradient(closest-side, rgba(23,66,126,0.12), transparent 74%)",
         }}
       />
 

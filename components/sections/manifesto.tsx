@@ -9,14 +9,14 @@ const CREEDS = [
 
 export function Manifesto() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-charcoal-950">
       {/* Royal blue light bed — the tonal pivot of the page */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(130% 100% at 50% 0%, rgba(90,110,220,0.14) 0%, transparent 62%), linear-gradient(180deg, #f6f3ec, #e9e3f2 48%, #f6f3ec)",
+            "radial-gradient(130% 100% at 50% 0%, rgba(47,95,159,0.34) 0%, transparent 62%), linear-gradient(180deg, #031633, #08224a 48%, #031633)",
         }}
       />
       <div
@@ -24,7 +24,7 @@ export function Manifesto() {
         className="pointer-events-none absolute left-1/2 top-0 h-[38vw] w-[70vw] -translate-x-1/2 animate-breathe blur-[130px]"
         style={{
          background:
-            "radial-gradient(closest-side, rgba(90,110,220,0.16), transparent 74%)",
+            "radial-gradient(closest-side, rgba(212,167,44,0.13), transparent 74%)",
         }}
       />
 

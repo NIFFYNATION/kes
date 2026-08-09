@@ -33,18 +33,27 @@ export const metadata: Metadata = {
     siteName: `${EVENT.name} ${EVENT.year}`,
     title: `${EVENT.name} ${EVENT.year} — ${EVENT.theme}`,
     description: EVENT.description,
+    images: [
+      {
+        url: new URL("/og.png", EVENT.url).toString(),
+        width: 1200,
+        height: 630,
+        alt: `${EVENT.name} ${EVENT.year} — ${EVENT.theme}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${EVENT.name} ${EVENT.year} — ${EVENT.theme}`,
     description: EVENT.description,
+    images: [new URL("/og.png", EVENT.url).toString()],
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f3ec",
-  colorScheme: "light",
+  themeColor: "#031633",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

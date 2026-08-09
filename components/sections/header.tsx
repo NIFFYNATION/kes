@@ -25,7 +25,7 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-charcoal-800/50 backdrop-blur-xl border-b border-white/8 shadow-lift"
+          ? "bg-charcoal-950/88 backdrop-blur-xl border-b border-white/10 shadow-lift"
           : "bg-transparent",
       )}
     >
@@ -39,7 +39,7 @@ export function Header() {
               width={384}
               height={128}
               className="h-9 w-auto transition-opacity duration-300 group-hover:opacity-80 lg:h-10"
-              priority
+              preload
             />
           </a>
 
@@ -49,7 +49,7 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-field px-4 py-2 text-sm font-medium text-cream-dim transition-colors duration-300 hover:bg-white/5 hover:text-gold-400"
+                className="rounded-field px-4 py-2 text-[0.9375rem] font-medium text-cream-dim transition-colors duration-300 hover:bg-white/8 hover:text-gold-300"
               >
                 {link.label}
               </a>
