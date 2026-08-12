@@ -241,7 +241,7 @@ export function Hero() {
                 <p className="text-sm font-semibold uppercase tracking-[0.17em] text-white/80 sm:text-base">
                   {slide.eyebrow}
                 </p>
-                <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[0.88] tracking-[-0.06em] text-white">
+                <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[0.88]  text-white">
                   <span className="block">{slide.title}</span>
                   <span className="block text-gold-gradient">{slide.accent}</span>
                 </h1>

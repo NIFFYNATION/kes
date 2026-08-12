@@ -1,12 +1,63 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { EVENT } from "@/lib/constants";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
+const inter = localFont({
+  variable: "--font-inter",
   display: "swap",
+  src: [
+    {
+      path: "./fonts/inter-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/inter-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/inter-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+});
+
+const montserrat = localFont({
+  variable: "--font-montserrat",
+  display: "swap",
+  src: [
+    {
+      path: "./fonts/montserrat-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/montserrat-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/montserrat-800.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "./fonts/montserrat-900.woff2",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+});
+
+const anton = localFont({
+  variable: "--font-anton",
+  display: "swap",
+  src: "./fonts/anton-400.woff2",
+  weight: "400",
+  style: "normal",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +111,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} h-full antialiased`}
+      className={`${inter.variable} ${montserrat.variable} ${anton.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-charcoal-950 text-cream">

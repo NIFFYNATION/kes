@@ -20,7 +20,9 @@ export function Eyebrow({
           className="h-px w-8 bg-[linear-gradient(90deg,transparent,var(--color-gold-500))]"
         />
       )}
-      <span className="text-label uppercase text-gold-500">{children}</span>
+      <span className="font-heading text-label uppercase text-gold-500">
+        {children}
+      </span>
     </div>
   );
 }
@@ -61,7 +63,7 @@ export function SectionTitle({
   return (
     <Tag
       className={cn(
-        "text-display-2 text-balance text-cream-gradient",
+        "font-display text-display-2 text-balance uppercase text-cream-gradient",
         className,
       )}
     >

@@ -12,28 +12,28 @@
   /* Numbering preserved for existing class names. 950 = page base
      (lightest), lower slots step gently deeper for muted tones. Cards
      (900/850) sit toward pure white so they lift off the page. */
-  --color-void: #020a18;
-  --color-charcoal-950: #031633;
-  --color-charcoal-900: #08224a;
-  --color-charcoal-850: #0a2a59;
-  --color-charcoal-800: #0d3268;
-  --color-charcoal-700: #244c7d;
-  --color-charcoal-600: #4f6f99;
-  --color-charcoal-500: #7890ae;
+  --color-void: #020a31;
+  --color-charcoal-950: #03113f;
+  --color-charcoal-900: #061a5b;
+  --color-charcoal-850: #07184e;
+  --color-charcoal-800: #0a2a7d;
+  --color-charcoal-700: #263b78;
+  --color-charcoal-600: #5f6d98;
+  --color-charcoal-500: #8892b2;
 
   /* ---------- Ink: deep brand navy (text on light) ---------- */
   --color-cream: #ffffff;
-  --color-cream-soft: #f0f4fb;
-  --color-cream-dim: #c8d4e5;
-  --color-cream-faint: #9eb0c9;
+  --color-cream-soft: #f8f6f0;
+  --color-cream-dim: #c6cada;
+  --color-cream-faint: #929bb9;
 
   /* ---------- KES orange / amber accents (deepened for light) ---------- */
-  --color-gold-200: #fff4bd;
-  --color-gold-300: #f7df78;
-  --color-gold-400: #e9c34b;
-  --color-gold-500: #d4a72c;
-  --color-gold-600: #b88713;
-  --color-gold-700: #805b08;
+  --color-gold-200: #fff0ae;
+  --color-gold-300: #f2cf61;
+  --color-gold-400: #e8ba45;
+  --color-gold-500: #d6a62f;
+  --color-gold-600: #b88318;
+  --color-gold-700: #8c620c;
 
   /* ---------- Deep orange (mark gradient tail) ---------- */
   --color-bronze-300: #efd074;
@@ -49,8 +49,9 @@
   --color-royal-900: #031633;
 
   /* ---------- Typography ---------- */
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  --font-sans: Inter, Arial, sans-serif;
+  --font-heading: Montserrat, Arial, sans-serif;
+  --font-display: Anton, Impact, "Arial Narrow Bold", sans-serif;
 
   /* Editorial display scale (fluid) */
   --text-display-1: clamp(3.25rem, 7.6vw, 7.5rem);
@@ -58,25 +59,25 @@
   --text-display-1--letter-spacing: -0.045em;
   --text-display-1--font-weight: 700;
 
-  --text-display-2: clamp(2.5rem, 5.4vw, 4.75rem);
-  --text-display-2--line-height: 0.95;
-  --text-display-2--letter-spacing: -0.04em;
-  --text-display-2--font-weight: 700;
+  --text-display-2: clamp(2.25rem, 5vw, 3rem);
+  --text-display-2--line-height: 0.98;
+  --text-display-2--letter-spacing: 0.03em;
+  --text-display-2--font-weight: 400;
 
   --text-display-3: clamp(2rem, 3.6vw, 3.25rem);
   --text-display-3--line-height: 1.05;
   --text-display-3--letter-spacing: -0.03em;
   --text-display-3--font-weight: 600;
 
-  --text-lead: clamp(1.0625rem, 1.35vw, 1.3125rem);
-  --text-lead--line-height: 1.65;
-  --text-lead--letter-spacing: -0.011em;
+  --text-lead: clamp(1rem, 1.35vw, 1.075rem);
+  --text-lead--line-height: 1.68;
+  --text-lead--letter-spacing: 0;
 
   /* Elegant uppercase label */
-  --text-label: 0.8125rem;
+  --text-label: 0.7rem;
   --text-label--line-height: 1.25;
   --text-label--letter-spacing: 0.16em;
-  --text-label--font-weight: 600;
+  --text-label--font-weight: 800;
 
   /* Bold editorial numbers */
   --text-numeral: clamp(2.75rem, 4.6vw, 4.25rem);
@@ -218,6 +219,16 @@
     overflow-x: hidden;
   }
 
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
+
+  /* The registration form keeps its existing geometric heading treatment. */
+  .theme-light .glass h2 {
+    font-family: var(--font-heading);
+  }
+
   ::selection {
     background-color: color-mix(in oklab, var(--color-gold-500) 24%, transparent);
     color: var(--color-cream);
@@ -278,22 +289,22 @@
 
 /* Light sections keep navy as ink while preserving the same token names. */
 .theme-light {
-  --color-void: #eef2f7;
+  --color-void: #f8f6f0;
   --color-charcoal-950: #ffffff;
-  --color-charcoal-900: #f7f9fc;
-  --color-charcoal-850: #eef3f9;
-  --color-charcoal-800: #e3eaf3;
-  --color-charcoal-700: #cdd8e6;
-  --color-charcoal-600: #9aabc0;
-  --color-charcoal-500: #73869f;
-  --color-cream: #061d45;
-  --color-cream-soft: #0d2c5f;
-  --color-cream-dim: #3f5676;
-  --color-cream-faint: #667b96;
-  --color-gold-400: #d1a129;
-  --color-gold-500: #b88311;
-  --color-gold-600: #8f6305;
-  --color-gold-700: #6b4700;
+  --color-charcoal-900: #f8f6f0;
+  --color-charcoal-850: #fbfaf6;
+  --color-charcoal-800: #f0eee8;
+  --color-charcoal-700: #d9dbe3;
+  --color-charcoal-600: #aaaebd;
+  --color-charcoal-500: #777d91;
+  --color-cream: #061a5b;
+  --color-cream-soft: #14182a;
+  --color-cream-dim: #626575;
+  --color-cream-faint: #777a89;
+  --color-gold-400: #d6a62f;
+  --color-gold-500: #b88318;
+  --color-gold-600: #a56f0d;
+  --color-gold-700: #8d5e08;
 }
 
 /* ============================================================
@@ -414,7 +425,7 @@
 
 /* Section rhythm — massive whitespace */
 @utility section-y {
-  padding-block: clamp(6rem, 13vw, 12rem);
+  padding-block: clamp(5rem, 7vw, 7.5rem);
 }
 
 /* Masked radial glow */

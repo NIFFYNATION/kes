@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "gold" | "ghost" | "outline";
+type Variant = "gold" | "navy" | "ghost" | "outline";
 type Size = "md" | "lg";
 
 const base =
@@ -17,6 +17,10 @@ const variants: Record<Variant, string> = {
     "text-[#031633] shadow-gold",
     "bg-[linear-gradient(135deg,var(--color-gold-400)_0%,var(--color-gold-500)_46%,var(--color-bronze-500)_100%)]",
     "hover:-translate-y-0.5 hover:shadow-gold-lg active:translate-y-0 active:scale-[0.985]",
+  ),
+  navy: cn(
+    "bg-[#031633] text-white shadow-card",
+    "hover:-translate-y-0.5 hover:bg-[#0d3268] active:translate-y-0 active:scale-[0.985]",
   ),
   ghost: cn(
     "text-cream border border-cream/12 bg-cream/[0.03] backdrop-blur-md",

@@ -1,11 +1,14 @@
 import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
+import { CampaignSlider } from "@/components/sections/campaign-slider";
 import { Registration } from "@/components/sections/registration";
-import { SovereignIntro } from "@/components/sections/sovereign-intro";
+import { AboutKes } from "@/components/sections/about-kes";
 import { Pillars } from "@/components/sections/pillars";
+import { Speakers } from "@/components/sections/speakers";
+import { RunningOrder } from "@/components/sections/running-order";
 import { JourneyTimeline } from "@/components/sections/journey-timeline";
-import { Manifesto } from "@/components/sections/manifesto";
-import { PastEvents } from "@/components/sections/past-events";
+import { PastEditions } from "@/components/sections/past-editions";
+import { BuildersCta } from "@/components/sections/builders-cta";
 import { Footer } from "@/components/sections/footer";
 
 export default function Page() {
@@ -14,12 +17,15 @@ export default function Page() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <CampaignSlider />
         <Registration />
-        <SovereignIntro />
+        <AboutKes />
         <Pillars />
+        <Speakers />
+        <RunningOrder />
         <JourneyTimeline />
-        <Manifesto />
-        <PastEvents />
+        <PastEditions />
+        <BuildersCta />
       </main>
       <Footer />
     </>
