@@ -204,7 +204,7 @@ export const PAST_EDITIONS: readonly PastEdition[] = [
       {
         src: asset("/editions/kes-2020-official-flyer.jpg"),
         alt: "KES 1.0 Maiden Edition official flyer",
-        caption: "The official flyer for the maiden KES gathering",
+        caption: "The official flyer for the maiden KES gathering.",
         kind: "flyer",
       },
       {
