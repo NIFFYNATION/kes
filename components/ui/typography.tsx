@@ -20,7 +20,13 @@ export function Eyebrow({
           className="h-px w-8 bg-[linear-gradient(90deg,transparent,var(--color-gold-500))]"
         />
       )}
-      <span className="font-heading text-label uppercase text-gold-500">
+      <span
+        className={cn(
+          "font-heading text-label uppercase text-gold-500",
+          !withRule &&
+            "inline-flex rounded-full border border-gold-500/30 px-4 py-2",
+        )}
+      >
         {children}
       </span>
     </div>
@@ -63,7 +69,7 @@ export function SectionTitle({
   return (
     <Tag
       className={cn(
-        "font-display text-display-2 text-balance uppercase text-cream-gradient",
+        "font-display text-display-2 text-balance uppercase text-cream",
         className,
       )}
     >

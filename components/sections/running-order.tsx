@@ -20,7 +20,7 @@ export function RunningOrder() {
                 <article
                   className={`grid gap-4 rounded-[16px] border p-5 sm:grid-cols-[60px_1fr_auto] sm:items-start sm:gap-[18px] sm:p-6 ${
                     featured
-                      ? "border-gold-300/20 bg-[linear-gradient(145deg,#07184e,#020a31)]"
+                      ? "border-[#102767] bg-[#06164f]"
                       : "border-[#d9dbe3] bg-white"
                   }`}
                 >
@@ -39,14 +39,18 @@ export function RunningOrder() {
                     >
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-[0.95rem] leading-[1.6] text-cream-dim">
+                    <p
+                      className={`mt-2 text-[0.95rem] leading-[1.6] ${
+                        featured ? "text-[#c6cada]" : "text-[#5f6578]"
+                      }`}
+                    >
                       {item.description}
                     </p>
                   </div>
                   <span
                     className={`font-heading w-fit rounded-full px-3 py-2 text-[0.64rem] font-black uppercase tracking-[0.08em] ${
                       featured
-                        ? "bg-gold-400/10 text-gold-300"
+                        ? "bg-white/10 text-gold-300"
                         : "bg-gold-500/10 text-gold-700"
                     }`}
                   >

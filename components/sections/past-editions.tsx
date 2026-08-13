@@ -37,7 +37,7 @@ export function PastEditions() {
   return (
     <section
       id="past-events"
-      className="theme-light relative overflow-hidden bg-white section-y"
+      className="theme-light relative overflow-hidden bg-[#f8f6f0] section-y"
     >
       <div
         aria-hidden

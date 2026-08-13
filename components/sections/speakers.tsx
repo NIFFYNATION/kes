@@ -61,7 +61,13 @@ export function Speakers() {
                   >
                     {speaker.topic}
                   </p>
-                  <p className="mt-3 text-[0.95rem] leading-[1.65] text-cream-dim">
+                  <p
+                    className={`mt-3 text-[0.95rem] leading-[1.65] ${
+                      "featured" in speaker && speaker.featured
+                        ? "text-[#c6cada]"
+                        : "text-[#5f6578]"
+                    }`}
+                  >
                     {speaker.bio}
                   </p>
                 </div>

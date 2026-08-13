@@ -11,7 +11,7 @@ const AUTOPLAY_MS = 8000;
 
 const SLIDES = [
   {
-    image: encodeURI("/pastEvents/KES 3 (18).jpg"),
+    image: encodeURI("/pastEvents/KES 3 (103).jpg"),
     alt: "A Kingdom Entrepreneurs Summit speaker teaching from the stage",
     eyebrow: "The 2026 theme",
     title: "The Sovereign",

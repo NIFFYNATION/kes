@@ -17,7 +17,7 @@ export function AboutKes() {
         <SectionIntro eyebrow="About KES" title="Built on one mandate" />
 
         <Reveal delay={0.12}>
-          <p className="font-heading mx-auto mt-5 max-w-[700px] text-center text-[clamp(1.1rem,2.3vw,1.28rem)] font-bold leading-[1.65] text-[#14182a]">
+          <p className="font-heading mx-auto mt-5 max-w-[700px] text-center text-[clamp(1.1rem,2.3vw,1.28rem)] font-bold leading-[1.65] text-[#061a5b]">
             {ABOUT_KES.mandate}
           </p>
         </Reveal>
@@ -29,7 +29,7 @@ export function AboutKes() {
                 <p className="font-heading text-label uppercase text-gold-600">
                   {purpose.label}
                 </p>
-                <p className="mt-3 text-base leading-[1.7] text-[#626575]">
+                <p className="mt-3 text-base leading-[1.7] text-[#5f6578]">
                   {purpose.copy}
                 </p>
               </article>

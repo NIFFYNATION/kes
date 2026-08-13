@@ -299,8 +299,8 @@
   --color-charcoal-500: #777d91;
   --color-cream: #061a5b;
   --color-cream-soft: #14182a;
-  --color-cream-dim: #626575;
-  --color-cream-faint: #777a89;
+  --color-cream-dim: #5f6578;
+  --color-cream-faint: #777d91;
   --color-gold-400: #d6a62f;
   --color-gold-500: #b88318;
   --color-gold-600: #a56f0d;
@@ -344,42 +344,6 @@
 .theme-light .glass-subtle {
   background: rgb(255 255 255 / 0.78);
   border-color: rgb(6 29 69 / 0.08);
-}
-
-/* Premium gradient text */
-@utility text-gold-gradient {
-  background-image: linear-gradient(
-    104deg,
-    var(--color-gold-300) 0%,
-    var(--color-gold-500) 38%,
-    var(--color-bronze-400) 68%,
-    var(--color-gold-300) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.theme-light .text-gold-gradient {
-  background-image: linear-gradient(
-    104deg,
-    var(--color-gold-700) 0%,
-    var(--color-gold-500) 42%,
-    var(--color-bronze-500) 72%,
-    var(--color-gold-700) 100%
-  );
-}
-
-@utility text-cream-gradient {
-  background-image: linear-gradient(
-    170deg,
-    var(--color-cream) 0%,
-    var(--color-cream) 52%,
-    color-mix(in oklab, var(--color-cream) 58%, transparent) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 /* Hairline rule with light falloff */
