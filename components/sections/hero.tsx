@@ -221,12 +221,10 @@ export function Hero() {
       <div className="relative z-20 flex min-h-[calc(100svh-7rem)] items-center px-0 pb-10 pt-32 sm:pb-12 sm:pt-36 lg:min-h-[calc(100svh-7rem)] lg:pb-14">
         <div className="shell">
           <div className="mx-auto max-w-5xl text-center">
-            <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-10 bg-gold-400" />
-              <p className="text-label uppercase text-gold-300">
+            <div className="flex items-center justify-center">
+              <p className="rounded-full border border-gold-300/45 bg-charcoal-950/45 px-5 py-2 text-label uppercase text-gold-300 backdrop-blur-md sm:px-7">
                 {EVENT.name} · {EVENT.year}
               </p>
-              <span className="h-px w-10 bg-gold-400" />
             </div>
 
             <AnimatePresence mode="wait">
@@ -238,13 +236,43 @@ export function Hero() {
                 transition={{ duration: reduce ? 0 : 0.55, ease: EASE }}
                 className="mt-6"
               >
-                <p className="text-sm font-semibold uppercase tracking-[0.17em] text-white/80 sm:text-base">
-                  {slide.eyebrow}
-                </p>
-                <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[0.88]  text-white">
-                  <span className="block">{slide.title}</span>
-                  <span className="block text-gold-gradient">{slide.accent}</span>
-                </h1>
+                {active === 0 ? (
+                  <>
+                    <p className="text-sm font-bold uppercase tracking-[0.42em] text-white sm:text-base">
+                      Tagged
+                    </p>
+                    <h1
+                      aria-label={EVENT.theme}
+                      className="font-display mx-auto mt-2 uppercase leading-[1.1] tracking-[0.01em] text-white"
+                    >
+                      <span className="block text-[clamp(3.8rem,7vw,6.2rem)]">
+                        The
+                      </span>
+                      <span className="block text-[clamp(4.2rem,10vw,8.2rem)] text-gold-300">
+                        Sovereign
+                      </span>
+                      <span className="block text-[clamp(3.15rem,8vw,7rem)]">
+                        Entrepreneur
+                      </span>
+                    </h1>
+                    <p className="mx-auto mt-6 w-fit rounded-full border border-gold-300/20 bg-[#0a3a8b]/85 px-6 py-2.5 text-sm font-bold text-white shadow-card sm:px-9 sm:text-base">
+                      {EVENT.tagline}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-semibold uppercase tracking-[0.17em] text-white/80 sm:text-base">
+                      {slide.eyebrow}
+                    </p>
+                    <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[1.1] tracking-[0.01em] text-white">
+                      <span className="block">{slide.title}</span>
+                      <span className="block text-gold-300">{slide.accent}</span>
+                    </h1>
+                     <p className="mx-auto mt-6 w-fit rounded-full border border-gold-300/20 bg-[#0a3a8b]/85 px-6 py-2.5 text-sm font-bold text-white shadow-card sm:px-9 sm:text-base">
+                      {EVENT.tagline}
+                    </p>
+                  </>
+                )}
                 <p className="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-cream-soft sm:text-xl sm:leading-9">
                   {slide.description}
                 </p>
