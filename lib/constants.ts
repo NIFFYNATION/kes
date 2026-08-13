@@ -45,6 +45,28 @@ export const BUSINESS_STAGES = [
   { value: "established", label: "Established Business" },
 ] as const;
 
+export const DESIGNATIONS = [
+  { value: "mr", label: "Mr." },
+  { value: "mrs", label: "Mrs." },
+  { value: "miss", label: "Miss" },
+  { value: "ms", label: "Ms." },
+  { value: "dr", label: "Dr." },
+  { value: "prof", label: "Prof." },
+  { value: "pastor", label: "Pastor" },
+  { value: "reverend", label: "Reverend" },
+  { value: "apostle", label: "Apostle" },
+  { value: "chief", label: "Chief" },
+  { value: "engineer", label: "Engineer" },
+  { value: "barrister", label: "Barrister" },
+  { value: "nurse", label: "Nurse" },
+  { value: "other", label: "Other" },
+] as const;
+
+export const YES_NO_OPTIONS = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
+] as const;
+
 export const NAV_LINKS = [
   { label: "The Summit", href: "#sovereign" },
   { label: "Pillars", href: "#pillars" },

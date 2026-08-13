@@ -105,17 +105,17 @@ export function PastEditions() {
 
           <div className="bg-charcoal-950 p-6 sm:flex sm:items-end sm:justify-between sm:gap-8 sm:p-8">
             <div>
-              <p className="text-label uppercase text-gold-300">
+              {/* <p className="text-label uppercase text-gold-300">
                 {item.kind === "flyer" ? "Official flyer" : edition.edition}
-              </p>
+              </p> */}
               <h3 className="mt-2 text-2xl font-bold tracking-[-0.035em] text-white sm:text-3xl">
                 {edition.theme}
               </h3>
-              <p className="mt-2 text-base text-cream-dim">{item.caption}</p>
+              {/* <p className="mt-2 text-base text-cream-dim">{item.caption}</p> */}
             </div>
-            <p className="mt-5 text-base font-semibold text-gold-300 sm:mt-0">
+            {/* <p className="mt-5 text-base font-semibold text-gold-300 sm:mt-0">
               {edition.location}
-            </p>
+            </p> */}
           </div>
         </div>
 

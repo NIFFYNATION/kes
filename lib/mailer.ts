@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import type { Transporter } from "nodemailer";
 import path from "node:path";
-import { EVENT, BUSINESS_STAGES } from "./constants";
+import { EVENT, BUSINESS_STAGES, DESIGNATIONS } from "./constants";
 import type { RegistrationInput } from "./validations";
 
 /**
@@ -48,6 +48,18 @@ export const isMailerConfigured = Boolean(user && pass);
 
 function stageLabel(value: string) {
   return BUSINESS_STAGES.find((s) => s.value === value)?.label ?? value;
+}
+
+function designationLabel(value: string) {
+  return DESIGNATIONS.find((item) => item.value === value)?.label ?? value;
+}
+
+function yesNoLabel(value: string) {
+  return value === "yes" ? "Yes" : "No";
+}
+
+function registrantName(input: RegistrationInput) {
+  return `${designationLabel(input.designation)} ${input.fullName}`;
 }
 
 /** Combines the optional business name and stage into a single line, or "". */
@@ -109,7 +121,7 @@ function confirmationHtml(input: RegistrationInput) {
                   Your free seat is reserved.
                 </h1>
                 <p style="margin:0 0 16px;font-size:16px;line-height:1.65;color:#b3aea3;">
-                  ${firstName}, thank you for registering. You're joining a room of faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.
+                  ${designationLabel(input.designation)} ${firstName}, thank you for registering. You're joining a room of faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.
                 </p>
                 <p style="margin:0 0 32px;font-size:16px;line-height:1.65;color:#b3aea3;">
                   Admission is free. We'll send your entry pass and full details closer to the date.
@@ -120,7 +132,7 @@ function confirmationHtml(input: RegistrationInput) {
               <td style="padding:0 40px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#191a1e;border:1px solid rgba(244,240,232,0.07);border-radius:16px;">
                   <tr>
-                    <td style="padding:24px 24px 8px;">${detailRow("Date", EVENT.dates.full)}${detailRow("Venue", EVENT.venue.full)}${detailRow("Business", businessSummary(input))}
+                    <td style="padding:24px 24px 8px;">${detailRow("Date", EVENT.dates.full)}${detailRow("Venue", EVENT.venue.full)}${detailRow("Business", businessSummary(input))}${input.tshirtInterest === "yes" ? detailRow("KES customised T-shirt", "Interested · ₦7,500") : ""}
                     </td>
                   </tr>
                 </table>
@@ -154,13 +166,14 @@ function confirmationText(input: RegistrationInput) {
     ``,
     `Your free seat is reserved.`,
     ``,
-    `${firstName}, thank you for registering. You're joining a room of faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.`,
+    `${designationLabel(input.designation)} ${firstName}, thank you for registering. You're joining a room of faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.`,
     ``,
     `Admission is free. We'll send your entry pass and full details closer to the date.`,
     ``,
     `Date:  ${EVENT.dates.full}`,
     `Venue: ${EVENT.venue.full}`,
     businessSummary(input) ? `Business: ${businessSummary(input)}` : "",
+    input.tshirtInterest === "yes" ? `KES T-shirt: Interested (₦7,500)` : "",
     ``,
     `Questions? Reply to this email or reach us at ${EVENT.email}.`,
   ]
@@ -202,13 +215,16 @@ export async function sendConfirmationEmail(
 
 function adminNotificationHtml(input: RegistrationInput) {
   const rows: [string, string][] = [
-    ["Full name", input.fullName],
+    ["Full name", registrantName(input)],
     ["Email", input.email],
     ["Phone", input.phone],
     ["Coming from", input.location],
     ["Business", input.businessName ?? ""],
     ["Stage", input.businessStage ? stageLabel(input.businessStage) : ""],
     ["Hoping to learn", input.hopeToLearn],
+    ["Attended KES before", yesNoLabel(input.attendedKesBefore)],
+    ["Financial support", yesNoLabel(input.financialSupportInterest)],
+    ["KES T-shirt · ₦7,500", yesNoLabel(input.tshirtInterest)],
   ];
 
   const cells = rows
@@ -240,7 +256,7 @@ function adminNotificationHtml(input: RegistrationInput) {
                   ${EVENT.name} ${EVENT.year} · New registration
                 </p>
                 <h1 style="margin:0 0 24px;font-size:28px;line-height:1.15;letter-spacing:-0.03em;color:#f4f0e8;font-weight:700;">
-                  ${input.fullName} just reserved a seat.
+                  ${registrantName(input)} just reserved a seat.
                 </h1>
               </td>
             </tr>
@@ -274,12 +290,15 @@ function adminNotificationText(input: RegistrationInput) {
   return [
     `New registration — ${EVENT.name} ${EVENT.year}`,
     ``,
-    `Full name:   ${input.fullName}`,
+    `Full name:   ${registrantName(input)}`,
     `Email:       ${input.email}`,
     `Phone:       ${input.phone}`,
     `Coming from: ${input.location}`,
     input.businessName ? `Business:    ${input.businessName}` : "",
     input.businessStage ? `Stage:       ${stageLabel(input.businessStage)}` : "",
+    `Attended KES before: ${yesNoLabel(input.attendedKesBefore)}`,
+    `Financial support interest: ${yesNoLabel(input.financialSupportInterest)}`,
+    `KES T-shirt interest (₦7,500): ${yesNoLabel(input.tshirtInterest)}`,
     ``,
     `Hoping to learn:`,
     input.hopeToLearn,
@@ -303,7 +322,7 @@ export async function sendAdminNotification(
       from: FROM,
       to: adminEmail,
       replyTo: input.email,
-      subject: `New registration: ${input.fullName} — ${EVENT.name} ${EVENT.year}`,
+      subject: `New registration: ${registrantName(input)} — ${EVENT.name} ${EVENT.year}`,
       text: adminNotificationText(input),
       html: adminNotificationHtml(input),
       attachments: [logoAttachment],

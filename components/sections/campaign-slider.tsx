@@ -61,6 +61,7 @@ export function CampaignSlider() {
                   src={slide.image}
                   alt={slide.alt}
                   fill
+                  loading="eager"
                   sizes="(max-width: 640px) calc(100vw - 3rem), 34rem"
                   className="object-contain"
                 />
@@ -86,7 +87,7 @@ export function CampaignSlider() {
             type="button"
             onClick={() => select(active - 1)}
             aria-label="Previous campaign announcement"
-            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-charcoal-950 text-3xl text-white shadow-card transition hover:-translate-y-1 hover:bg-charcoal-800 sm:h-20 sm:w-20"
+            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#061a5b] bg-[#061a5b] text-3xl text-white shadow-card transition hover:-translate-y-1 hover:border-[#0a2a7d] hover:bg-[#0a2a7d] sm:h-20 sm:w-20"
           >
             ←
           </button>
@@ -113,7 +114,7 @@ export function CampaignSlider() {
             type="button"
             onClick={() => select(active + 1)}
             aria-label="Next campaign announcement"
-            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-charcoal-950 text-3xl text-white shadow-card transition hover:-translate-y-1 hover:bg-charcoal-800 sm:h-20 sm:w-20"
+            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#061a5b] bg-[#061a5b] text-3xl text-white shadow-card transition hover:-translate-y-1 hover:border-[#0a2a7d] hover:bg-[#0a2a7d] sm:h-20 sm:w-20"
           >
             →
           </button>

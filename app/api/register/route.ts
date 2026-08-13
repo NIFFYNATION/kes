@@ -4,7 +4,7 @@ import {
   flattenFieldErrors,
   type FieldErrors,
 } from "@/lib/validations";
-import { saveRegistration } from "@/lib/supabase";
+import { saveRegistration } from "@/lib/google-sheets";
 import { sendConfirmationEmail, sendAdminNotification } from "@/lib/mailer";
 
 /** Registrations are user submissions — never cache this route. */
@@ -14,7 +14,23 @@ type ApiResponse = {
   ok: boolean;
   message: string;
   errors?: FieldErrors;
+  redirectUrl?: string;
 };
+
+const whatsappGroupUrl = process.env.WHATSAPP_GROUP_URL?.trim();
+
+function getRedirectUrl() {
+  if (!whatsappGroupUrl) return undefined;
+
+  try {
+    const url = new URL(whatsappGroupUrl);
+    return url.protocol === "https:" && url.hostname === "chat.whatsapp.com"
+      ? url.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 /** Very small in-memory throttle (best-effort; resets on cold start). */
 const RATE_LIMIT = { windowMs: 60_000, max: 5 };
@@ -91,7 +107,7 @@ export async function POST(request: Request) {
   }
 
   if (saved.status === "error") {
-    console.error("[register] supabase:", saved.message);
+    console.error("[register] google-sheets:", saved.message);
     return NextResponse.json<ApiResponse>(
       { ok: false, message: "We couldn't save your registration. Try again." },
       { status: 500 },
@@ -99,8 +115,16 @@ export async function POST(request: Request) {
   }
 
   if (saved.status === "skipped") {
-    console.warn(
-      "[register] Supabase not configured — registration not persisted.",
+    console.error(
+      "[register] Google Sheets not configured — refusing an unpersisted registration.",
+    );
+    return NextResponse.json<ApiResponse>(
+      {
+        ok: false,
+        message:
+          "Registration is temporarily unavailable. Please try again shortly.",
+      },
+      { status: 503 },
     );
   }
 
@@ -130,6 +154,6 @@ export async function POST(request: Request) {
   return NextResponse.json<ApiResponse>({
     ok: true,
     message: "Your seat is reserved. Check your inbox for confirmation.",
-
+    redirectUrl: getRedirectUrl(),
   });
 }

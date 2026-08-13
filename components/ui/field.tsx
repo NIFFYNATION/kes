@@ -168,3 +168,102 @@ export function SelectField({
     </div>
   );
 }
+
+/* --------------------------------- Radio ---------------------------------- */
+
+export function RadioField({
+  label,
+  error,
+  options,
+  value,
+  onChange,
+  disabled,
+  className,
+}: {
+  label: string;
+  error?: string;
+  options: ReadonlyArray<{ value: string; label: string }>;
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  className?: string;
+}) {
+  const id = useId();
+  const errorId = `${id}-error`;
+
+  return (
+    <fieldset
+      className={cn("group", className)}
+      disabled={disabled}
+      aria-invalid={Boolean(error)}
+      aria-describedby={error ? errorId : undefined}
+    >
+      <legend className={cn(labelClass, "group-focus-within:text-gold-500")}>
+        {label}
+      </legend>
+      <div className="grid grid-cols-2 gap-3">
+        {options.map((option) => {
+          const checked = value === option.value;
+
+          return (
+            <label
+              key={option.value}
+              className={cn(
+                "relative flex min-h-[3.75rem] cursor-pointer items-center gap-3 overflow-hidden rounded-[1rem] border px-4 text-base font-semibold transition-all duration-300",
+                "focus-within:outline-none focus-within:ring-4 focus-within:ring-gold-500/15",
+                checked
+                  ? "border-gold-500/80 bg-[linear-gradient(135deg,rgba(246,204,94,0.19),rgba(194,103,12,0.08))] text-gold-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_28px_rgba(194,103,12,0.13)]"
+                  : "border-cream/12 bg-charcoal-900/85 text-cream-dim shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] hover:-translate-y-0.5 hover:border-cream/25 hover:bg-charcoal-900 hover:text-cream",
+                error && "border-red-400/70",
+                disabled && "cursor-not-allowed opacity-55",
+              )}
+            >
+              <input
+                type="radio"
+                name={id}
+                value={option.value}
+                checked={checked}
+                onChange={() => onChange(option.value)}
+                className="sr-only"
+              />
+              <span
+                aria-hidden
+                className={cn(
+                  "relative grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-all duration-300",
+                  checked
+                    ? "border-gold-400 bg-gold-400 shadow-[0_0_0_4px_rgba(246,204,94,0.12)]"
+                    : "border-cream/25 bg-cream/[0.03]",
+                )}
+              >
+                <span
+                  className={cn(
+                    "h-2.5 w-2.5 rounded-full bg-[#061a5b] transition-all duration-300",
+                    checked ? "scale-100 opacity-100" : "scale-0 opacity-0",
+                  )}
+                />
+              </span>
+              <span className="flex-1">{option.label}</span>
+              {checked && (
+                <svg
+                  aria-hidden
+                  viewBox="0 0 20 20"
+                  className="h-5 w-5 shrink-0 text-gold-400"
+                >
+                  <path
+                    d="m4.25 10.25 3.5 3.5 8-8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
+            </label>
+          );
+        })}
+      </div>
+      {error && <ErrorText id={errorId}>{error}</ErrorText>}
+    </fieldset>
+  );
+}

@@ -11,17 +11,23 @@ export const CAMPAIGN_SLIDES = [
   {
     label: "Coming soon",
     title: "Speaker Reveal",
-    description: "The next KES 2026 speaker announcement will appear here.",
+    description: "The next KES 2025 speaker announcement will appear here.",
+     image: asset("/editions/kes-2025-official-flyer.jpg"),
+    alt: "KES 2025  official flyer",
   },
   {
     label: "Coming soon",
     title: "Programme Reveal",
     description: "The official programme and session artwork will appear here.",
+     image: asset("/editions/kes-2023-official-flyer.jpg"),
+    alt: "KES 2023 UpSurge official flyer",
   },
   {
     label: "Coming soon",
     title: "Final Countdown",
     description: "The final registration campaign artwork will appear here.",
+     image: asset("/editions/kes-2020-official-flyer.jpg"),
+    alt: "KES 2020 The Sovereign Entrepreneur official flyer",
   },
 ] as const;
 
@@ -165,14 +171,16 @@ const KES_2025_MOMENTS = [
 
 export type GalleryItem = {
   src: string;
-  
+  alt: string;
+  caption: string;
+  kind: "flyer" | "moment";
 };
 
 export type PastEdition = {
   year: string;
   edition: string;
   theme: string;
-  // location: string;
+  location: string;
   accent: string;
   gallery: readonly GalleryItem[];
 };
@@ -182,32 +190,44 @@ export const PAST_EDITIONS: readonly PastEdition[] = [
     year: "2020",
     edition: "KES 1.0",
     theme: "Maiden Edition",
-    // location: "2020",
+    location: "2020",
     accent: "navy",
     gallery: [
       {
         src: asset("/editions/kes-2020-official-flyer.jpg"),
-      
+        alt: "KES 1.0 Maiden Edition official flyer",
+        caption: "The official flyer for the maiden KES gathering",
+        kind: "flyer",
       },
       {
-        src: asset("/editions/kes-2020-1.jpg"),
-       
+        src: asset("/editions/kes-2020-1.JPG"),
+        alt: "Guests at the maiden KES gathering",
+        caption: "Moments from the maiden KES gathering",
+        kind: "moment",
       },
       {
-        src: asset("/editions/kes-2020-2.jpg"),
-      
+        src: asset("/editions/kes-2020-2.JPG"),
+        alt: "A session at KES 1.0",
+        caption: "The maiden gathering in session",
+        kind: "moment",
       },
       {
-        src: asset("/editions/kes-2020-3.jpg"),
-       
+        src: asset("/editions/kes-2020-3.JPG"),
+        alt: "A speaker addressing KES 1.0 attendees",
+        caption: "Marketplace teaching at KES 1.0",
+        kind: "moment",
       },
       {
-        src: asset("/editions/kes-2020-4.jpg"),
-       
+        src: asset("/editions/kes-2020-4.JPG"),
+        alt: "KES 1.0 attendees during the event",
+        caption: "Builders gathered for the maiden edition",
+        kind: "moment",
       },
       {
-        src: asset("/editions/kes-2020-5.jpg"),
-        
+        src: asset("/editions/kes-2020-5.JPG"),
+        alt: "A moment captured at KES 1.0",
+        caption: "The KES journey begins",
+        kind: "moment",
       },
     ],
   },
@@ -215,32 +235,14 @@ export const PAST_EDITIONS: readonly PastEdition[] = [
     year: "2023",
     edition: "KES 2.0",
     theme: "Empowered for Wealth",
-    // location: "Ibadan · 2023",
+    location: "Ibadan · 2023",
     accent: "gold",
     gallery: [
       {
         src: asset("/editions/kes-2023-official-flyer.jpg"),
-       
-      },
-      {
-        src: asset("/editions/kes-2023-1.jpg"),
-       
-      },
-      {
-        src: asset("/editions/kes-2023-2.jpg"),
-       
-      },
-      {
-        src: asset("/editions/kes-2023-3.jpg"),
-       
-      },
-      {
-        src: asset("/editions/kes-2023-4.jpg"),
-       
-      },
-      {
-        src: asset("/editions/kes-2023-5.jpg"),
-       
+        alt: "KES 2.0 Empowered for Wealth official flyer",
+        caption: "The official flyer for KES 2.0",
+        kind: "flyer",
       },
     ],
   },
@@ -248,14 +250,16 @@ export const PAST_EDITIONS: readonly PastEdition[] = [
     year: "2025",
     edition: "KES 3.0",
     theme: "Upsurge",
-    // location: "Ibadan · 2025",
+    location: "Ibadan · 2025",
     accent: "rose",
     gallery: [
       {
         src: asset("/editions/kes-2025-official-flyer.jpg"),
-        
+        alt: "KES 3.0 Upsurge official flyer",
+        caption: "The official flyer for KES 3.0",
+        kind: "flyer",
       },
-    
+
       ...KES_2025_MOMENTS.map(([filename, caption]) => ({
         src: asset(`/pastEvents/${filename}`),
         alt: caption,

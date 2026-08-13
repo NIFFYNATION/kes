@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kingdom Entrepreneurs Summit 2026
 
-## Getting Started
+## Local development
 
-First, run the development server:
+Copy `.env.example` to `.env`, add the required values, then run:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Registration list
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Registrations are stored directly in a private Google Sheet through a bound
+Google Apps Script web app. The browser never receives the Sheet URL or its
+shared security key.
 
-## Learn More
+1. Create a Google Sheet and open **Extensions → Apps Script**.
+2. Replace the editor contents with `google-apps-script/Code.gs`.
+3. Run `initializeRegistrationSheet`, then run
+   `configureRegistrationSecret` and enter a random value of at least 32
+   characters.
+4. Deploy the script as a **Web app**, executing as yourself, with access set to
+   **Anyone**. The security key still protects every write.
+5. Set `GOOGLE_SHEETS_WEB_APP_URL` to the deployment URL and
+   `GOOGLE_SHEETS_SECRET` to the same security key in `.env` and in the hosting
+   provider's environment settings.
 
-To learn more about Next.js, take a look at the following resources:
+The **Registrations** tab is the private attendee list and can be filtered,
+sorted, shared with organizers, or downloaded as CSV. Redeploy the Apps Script
+after future code changes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+When registration fields change, paste the latest `google-apps-script/Code.gs`,
+run `initializeRegistrationSheet` again to refresh the columns, then create a
+new web-app version from **Deploy → Manage deployments**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## WhatsApp redirect
 
-## Deploy on Vercel
+When the group is ready, set `WHATSAPP_GROUP_URL` to the full
+`https://chat.whatsapp.com/...` invitation link. After a registration is saved,
+the browser redirects to that group. If the value is empty or invalid, the
+existing success confirmation remains on the site.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Quality checks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run lint
+```

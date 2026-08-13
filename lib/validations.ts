@@ -1,12 +1,23 @@
 import { z } from "zod";
-import { BUSINESS_STAGES } from "./constants";
+import { BUSINESS_STAGES, DESIGNATIONS, YES_NO_OPTIONS } from "./constants";
 
 const stageValues = BUSINESS_STAGES.map((s) => s.value) as [
   string,
   ...string[],
 ];
+const designationValues = DESIGNATIONS.map((item) => item.value) as [
+  string,
+  ...string[],
+];
+const yesNoValues = YES_NO_OPTIONS.map((item) => item.value) as [
+  string,
+  ...string[],
+];
 
 export const registrationSchema = z.object({
+  designation: z.enum(designationValues, {
+    message: "Please select your designation.",
+  }),
   fullName: z
     .string()
     .trim()
@@ -50,8 +61,25 @@ export const registrationSchema = z.object({
     .trim()
     .min(3, "Please share what you hope to learn.")
     .max(500, "Please keep this under 500 characters."),
+  attendedKesBefore: z.enum(yesNoValues, {
+    message: "Please tell us if you have attended KES before.",
+  }),
+  financialSupportInterest: z.enum(yesNoValues, {
+    message: "Please select yes or no.",
+  }),
+  tshirtInterest: z.enum(yesNoValues, {
+    message: "Please select yes or no.",
+  }),
   /** Honeypot — must stay empty. Bots fill it in. */
   website: z.string().max(0).optional().or(z.literal("")),
+});
+
+export const registrationStepOneSchema = registrationSchema.pick({
+  designation: true,
+  fullName: true,
+  email: true,
+  phone: true,
+  location: true,
 });
 
 export type RegistrationInput = z.infer<typeof registrationSchema>;
