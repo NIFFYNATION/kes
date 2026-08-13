@@ -1,6 +1,14 @@
 const asset = (path: string) => encodeURI(path);
 
-export const CAMPAIGN_SLIDES = [
+export type CampaignSlide = {
+  label: string;
+  title: string;
+  description: string;
+  image?: string;
+  alt?: string;
+};
+
+export const CAMPAIGN_SLIDES: readonly CampaignSlide[] = [
   {
     label: "Official flyer",
     title: "The Sovereign Entrepreneur",
@@ -29,7 +37,7 @@ export const CAMPAIGN_SLIDES = [
      image: asset("/editions/kes-2020-official-flyer.jpg"),
     alt: "KES 2020 The Sovereign Entrepreneur official flyer",
   },
-] as const;
+];
 
 export const ABOUT_KES = {
   mandate:

@@ -56,10 +56,10 @@ export function CampaignSlider() {
               exit={reduce ? undefined : { opacity: 0, x: -22 }}
               transition={{ duration: reduce ? 0 : 0.5, ease: EASE }}
             >
-              {"image" in slide ? (
+              {slide.image ? (
                 <Image
                   src={slide.image}
-                  alt={slide.alt}
+                  alt={slide.alt ?? slide.title}
                   fill
                   loading="eager"
                   sizes="(max-width: 640px) calc(100vw - 3rem), 34rem"
