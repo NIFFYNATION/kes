@@ -44,7 +44,7 @@ export function Header() {
           </a>
 
           {/* Nav */}
-          <nav className="hidden items-center gap-1 lg:flex">
+          {/* <nav className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -54,7 +54,7 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-          </nav>
+          </nav> */}
 
           {/* CTA */}
           <Button href="#register" variant="gold" size="md">

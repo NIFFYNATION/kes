@@ -261,7 +261,7 @@ export function Hero() {
                   </>
                 ) : (
                   <>
-                    <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[1.1] tracking-[0.01em] text-white">
+                    <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)]  uppercase leading-[1.1] tracking-[0.01em] text-white">
                       <span className="block">{slide.title}</span>
                       <span className="block text-gold-300">{slide.accent}</span>
                     </h1>
