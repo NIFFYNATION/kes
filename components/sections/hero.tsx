@@ -261,15 +261,12 @@ export function Hero() {
                   </>
                 ) : (
                   <>
-                    <p className="text-sm font-semibold uppercase tracking-[0.17em] text-white/80 sm:text-base">
-                      {slide.eyebrow}
-                    </p>
                     <h1 className="mx-auto mt-4 text-balance text-[clamp(3.2rem,8vw,7.5rem)] font-bold leading-[1.1] tracking-[0.01em] text-white">
                       <span className="block">{slide.title}</span>
                       <span className="block text-gold-300">{slide.accent}</span>
                     </h1>
-                     <p className="mx-auto mt-6 w-fit rounded-full border border-gold-300/20 bg-[#0a3a8b]/85 px-6 py-2.5 text-sm font-bold text-white shadow-card sm:px-9 sm:text-base">
-                      {EVENT.tagline}
+                    <p className="mx-auto mt-6 w-fit rounded-full border border-gold-300/20 bg-[#0a3a8b]/85 px-6 py-2.5 text-sm font-bold text-white shadow-card sm:px-9 sm:text-base">
+                      {slide.eyebrow}
                     </p>
                   </>
                 )}

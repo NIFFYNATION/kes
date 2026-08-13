@@ -36,9 +36,9 @@ export function Header() {
             <Image
               src="/keslogo.png"
               alt={EVENT.name}
-              width={384}
-              height={128}
-              className="h-9 w-auto transition-opacity duration-300 group-hover:opacity-80 lg:h-10"
+              width={946}
+              height={402}
+              className="h-10 w-auto transition-opacity duration-300 group-hover:opacity-80 sm:h-12 lg:h-14"
               preload
             />
           </a>

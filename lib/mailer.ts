@@ -86,7 +86,7 @@ const logoAttachment = {
 /** Inline logo header shared by every email. */
 function logoHeader() {
   return `
-                <img src="cid:${LOGO_CID}" alt="${EVENT.name}" height="40" style="display:block;height:40px;width:auto;margin:0 0 28px;" />`;
+                <img src="cid:${LOGO_CID}" alt="${EVENT.name}" height="54" style="display:block;height:54px;width:auto;margin:0 0 28px;" />`;
 }
 
 /** Renders a labelled detail row only when the value is present. */
