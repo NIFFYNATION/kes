@@ -75,10 +75,10 @@ function businessSummary(input: RegistrationInput) {
  * block remote images, unlike a hosted <img src> URL.
  */
 const LOGO_CID = "kes-logo";
-const LOGO_PATH = path.join(process.cwd(), "public", "keslogo.png");
+const LOGO_PATH = path.join(process.cwd(), "public", "kes-logo-2026.png");
 
 const logoAttachment = {
-  filename: "keslogo.png",
+  filename: "kes-logo-2026.png",
   path: LOGO_PATH,
   cid: LOGO_CID,
 };

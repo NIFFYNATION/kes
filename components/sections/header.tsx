@@ -34,7 +34,7 @@ export function Header() {
           {/* Logo */}
           <a href="#top" className="group flex items-center">
             <Image
-              src="/keslogo.png"
+              src="/kes-logo-2026.png"
               alt={EVENT.name}
               width={946}
               height={402}
