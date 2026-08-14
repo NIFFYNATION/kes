@@ -16,27 +16,27 @@ export const CAMPAIGN_SLIDES: readonly CampaignSlide[] = [
     image: asset("/editions/kes-2026-official-flyer.jpg"),
     alt: "KES 2026 The Sovereign Entrepreneur official flyer",
   },
-  {
-    label: "Coming soon",
-    title: "Speaker Reveal",
-    description: "The next KES 2025 speaker announcement will appear here.",
-     image: asset("/editions/kes-2025-official-flyer.jpg"),
-    alt: "KES 2025  official flyer",
-  },
-  {
-    label: "Coming soon",
-    title: "Programme Reveal",
-    description: "The official programme and session artwork will appear here.",
-     image: asset("/editions/kes-2023-official-flyer.jpg"),
-    alt: "KES 2023 UpSurge official flyer",
-  },
-  {
-    label: "Coming soon",
-    title: "Final Countdown",
-    description: "The final registration campaign artwork will appear here.",
-     image: asset("/editions/kes-2020-official-flyer.jpg"),
-    alt: "KES 2020 The Sovereign Entrepreneur official flyer",
-  },
+  // {
+  //   label: "Coming soon",
+  //   title: "Speaker Reveal",
+  //   description: "The next KES 2025 speaker announcement will appear here.",
+  //    image: asset("/editions/kes-2025-official-flyer.jpg"),
+  //   alt: "KES 2025  official flyer",
+  // },
+  // {
+  //   label: "Coming soon",
+  //   title: "Programme Reveal",
+  //   description: "The official programme and session artwork will appear here.",
+  //    image: asset("/editions/kes-2023-official-flyer.jpg"),
+  //   alt: "KES 2023 UpSurge official flyer",
+  // },
+  // {
+  //   label: "Coming soon",
+  //   title: "Final Countdown",
+  //   description: "The final registration campaign artwork will appear here.",
+  //    image: asset("/editions/kes-2020-official-flyer.jpg"),
+  //   alt: "KES 2020 The Sovereign Entrepreneur official flyer",
+  // },
 ];
 
 export const ABOUT_KES = {
@@ -141,18 +141,18 @@ export const RUNNING_ORDER = [
 export const JOURNEY = [
   {
     year: "2020",
-    title: "KES 1.0 — Maiden Edition",
+    title: "KES 1.0: Maiden Edition",
     description: "The beginning of the Kingdom Entrepreneurs Summit journey.",
   },
   {
     year: "2023",
-    title: "KES 2.0 — Empowered for Wealth",
+    title: "KES 2.0: Empowered for Wealth",
     description:
       "Ibadan · A renewed focus on wealth creation and marketplace impact.",
   },
   {
     year: "2025",
-    title: "KES 3.0 — Upsurge",
+    title: "KES 3.0: Upsurge",
     description:
       "Harnessing skills, strategy, and supernatural advantage in the marketplace.",
   },
@@ -165,16 +165,28 @@ export const JOURNEY = [
 ] as const;
 
 const KES_2025_MOMENTS = [
-  ["KES 3 (12).jpg", "The room fills for the opening session"],
-  ["KES 3 (16).jpg", "Teaching from the main stage"],
-  ["KES 3 (18).jpg", "A marketplace lesson in progress"],
-  ["KES 3 (51).jpg", "Panel conversation on building with conviction"],
-  ["KES 3 (66).jpg", "Leaders and guests at KES 3.0"],
-  ["KES 3 (101).jpg", "Questions and insight from the floor"],
-  ["KES 3 (103).jpg", "A keynote on stewardship and scale"],
-  ["KES 3 (132).jpg", "Connections made between sessions"],
-  ["KES 3 (137).jpg", "Prayer over businesses and builders"],
-  ["KES 3 (165).jpg", "A room aligned around the mandate"],
+  ["1.jpeg", "The room fills for the opening session"],
+  ["2.jpeg", "Teaching from the main stage"],
+  ["3.jpeg", "A marketplace lesson in progress"],
+  ["4.jpeg", "Panel conversation on building with conviction"],
+  ["5.jpeg", "Leaders and guests at KES 3.0"],
+  ["6.jpeg", "Questions and insight from the floor"],
+  ["7.jpeg", "A keynote on stewardship and scale"],
+  ["8.jpeg", "Connections made between sessions"],
+  ["9.jpeg", "Prayer over businesses and builders"],
+  ["10.jpeg", "A room aligned around the mandate"],
+  ["11.jpeg", "A room aligned around the mandate"],
+  ["12.jpeg", "A room aligned around the mandate"],
+  ["13.jpeg", "A room aligned around the mandate"],
+  ["14.jpeg", "A room aligned around the mandate"],
+  ["15.jpeg", "A room aligned around the mandate"],
+  ["16.jpeg", "A room aligned around the mandate"],
+  ["17.jpeg", "A room aligned around the mandate"],
+  ["18.jpeg", "A room aligned around the mandate"],
+  ["19.jpeg", "A room aligned around the mandate"],
+  ["20.jpeg", "A room aligned around the mandate"],
+  ["21.jpeg", "A room aligned around the mandate"],
+  ["22.jpeg", "A room aligned around the mandate"],
 ] as const;
 
 export type GalleryItem = {
