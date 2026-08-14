@@ -1,7 +1,13 @@
 import nodemailer from "nodemailer";
 import type { Transporter } from "nodemailer";
 import path from "node:path";
-import { EVENT, BUSINESS_STAGES, DESIGNATIONS } from "./constants";
+import {
+  EVENT,
+  BUSINESS_STAGES,
+  DESIGNATIONS,
+  TSHIRT_COLORS,
+  TSHIRT_SIZES,
+} from "./constants";
 import type { RegistrationInput } from "./validations";
 
 /**
@@ -56,6 +62,27 @@ function designationLabel(value: string) {
 
 function yesNoLabel(value: string) {
   return value === "yes" ? "Yes" : "No";
+}
+
+function tshirtColorLabel(value: string) {
+  return TSHIRT_COLORS.find((item) => item.value === value)?.label ?? value;
+}
+
+function tshirtSizeLabel(value: string) {
+  return TSHIRT_SIZES.find((item) => item.value === value)?.label ?? value;
+}
+
+function tshirtSummary(input: RegistrationInput) {
+  if (input.tshirtInterest !== "yes") return "";
+
+  return [
+    "Interested",
+    "₦7,500",
+    tshirtColorLabel(input.tshirtColor),
+    tshirtSizeLabel(input.tshirtSize),
+  ]
+    .filter(Boolean)
+    .join(" · ");
 }
 
 function registrantName(input: RegistrationInput) {
@@ -132,7 +159,7 @@ function confirmationHtml(input: RegistrationInput) {
               <td style="padding:0 40px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#191a1e;border:1px solid rgba(244,240,232,0.07);border-radius:16px;">
                   <tr>
-                    <td style="padding:24px 24px 8px;">${detailRow("Date", EVENT.dates.full)}${detailRow("Venue", EVENT.venue.full)}${detailRow("Business", businessSummary(input))}${input.tshirtInterest === "yes" ? detailRow("KES customised T-shirt", "Interested · ₦7,500") : ""}
+                    <td style="padding:24px 24px 8px;">${detailRow("Date", EVENT.dates.full)}${detailRow("Venue", EVENT.venue.full)}${detailRow("Business", businessSummary(input))}${detailRow("KES customised T-shirt", tshirtSummary(input))}
                     </td>
                   </tr>
                 </table>
@@ -173,7 +200,7 @@ function confirmationText(input: RegistrationInput) {
     `Date:  ${EVENT.dates.full}`,
     `Venue: ${EVENT.venue.full}`,
     businessSummary(input) ? `Business: ${businessSummary(input)}` : "",
-    input.tshirtInterest === "yes" ? `KES T-shirt: Interested (₦7,500)` : "",
+    tshirtSummary(input) ? `KES T-shirt: ${tshirtSummary(input)}` : "",
     ``,
     `Questions? Reply to this email or reach us at ${EVENT.email}.`,
   ]
@@ -225,6 +252,14 @@ function adminNotificationHtml(input: RegistrationInput) {
     ["Attended KES before", yesNoLabel(input.attendedKesBefore)],
     ["Financial support", yesNoLabel(input.financialSupportInterest)],
     ["KES T-shirt · ₦7,500", yesNoLabel(input.tshirtInterest)],
+    [
+      "T-shirt colour",
+      input.tshirtInterest === "yes" ? tshirtColorLabel(input.tshirtColor) : "",
+    ],
+    [
+      "T-shirt size",
+      input.tshirtInterest === "yes" ? tshirtSizeLabel(input.tshirtSize) : "",
+    ],
   ];
 
   const cells = rows
@@ -299,6 +334,12 @@ function adminNotificationText(input: RegistrationInput) {
     `Attended KES before: ${yesNoLabel(input.attendedKesBefore)}`,
     `Financial support interest: ${yesNoLabel(input.financialSupportInterest)}`,
     `KES T-shirt interest (₦7,500): ${yesNoLabel(input.tshirtInterest)}`,
+    input.tshirtInterest === "yes"
+      ? `T-shirt colour: ${tshirtColorLabel(input.tshirtColor)}`
+      : "",
+    input.tshirtInterest === "yes"
+      ? `T-shirt size: ${tshirtSizeLabel(input.tshirtSize)}`
+      : "",
     ``,
     `Hoping to learn:`,
     input.hopeToLearn,

@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { BUSINESS_STAGES, DESIGNATIONS, YES_NO_OPTIONS } from "./constants";
+import {
+  BUSINESS_STAGES,
+  DESIGNATIONS,
+  TSHIRT_COLORS,
+  TSHIRT_SIZES,
+  YES_NO_OPTIONS,
+} from "./constants";
 
 const stageValues = BUSINESS_STAGES.map((s) => s.value) as [
   string,
@@ -13,8 +19,16 @@ const yesNoValues = YES_NO_OPTIONS.map((item) => item.value) as [
   string,
   ...string[],
 ];
+const tshirtColorValues = TSHIRT_COLORS.map((item) => item.value) as [
+  string,
+  ...string[],
+];
+const tshirtSizeValues = TSHIRT_SIZES.map((item) => item.value) as [
+  string,
+  ...string[],
+];
 
-export const registrationSchema = z.object({
+const registrationBaseSchema = z.object({
   designation: z.enum(designationValues, {
     message: "Please select your designation.",
   }),
@@ -70,11 +84,39 @@ export const registrationSchema = z.object({
   tshirtInterest: z.enum(yesNoValues, {
     message: "Please select yes or no.",
   }),
+  tshirtColor: z.enum(tshirtColorValues).or(z.literal("")).default(""),
+  tshirtSize: z.enum(tshirtSizeValues).or(z.literal("")).default(""),
   /** Honeypot — must stay empty. Bots fill it in. */
   website: z.string().max(0).optional().or(z.literal("")),
 });
 
-export const registrationStepOneSchema = registrationSchema.pick({
+export const registrationSchema = registrationBaseSchema
+  .superRefine((data, context) => {
+    if (data.tshirtInterest !== "yes") return;
+
+    if (!data.tshirtColor) {
+      context.addIssue({
+        code: "custom",
+        path: ["tshirtColor"],
+        message: "Please select your preferred T-shirt colour.",
+      });
+    }
+
+    if (!data.tshirtSize) {
+      context.addIssue({
+        code: "custom",
+        path: ["tshirtSize"],
+        message: "Please select your T-shirt size.",
+      });
+    }
+  })
+  .transform((data) => ({
+    ...data,
+    tshirtColor: data.tshirtInterest === "yes" ? data.tshirtColor : "",
+    tshirtSize: data.tshirtInterest === "yes" ? data.tshirtSize : "",
+  }));
+
+export const registrationStepOneSchema = registrationBaseSchema.pick({
   designation: true,
   fullName: true,
   email: true,

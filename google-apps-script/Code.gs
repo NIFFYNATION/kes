@@ -13,6 +13,8 @@ const HEADERS = [
   "Attended KES Before",
   "Financial Support Interest",
   "T-shirt Interest (₦7,500)",
+  "T-shirt Color",
+  "T-shirt Size",
   "Source",
 ];
 
@@ -22,6 +24,7 @@ function initializeRegistrationSheet() {
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
   if (!sheet) sheet = spreadsheet.insertSheet(SHEET_NAME);
+  migrateRegistrationColumns(sheet);
 
   sheet
     .getRange(1, 1, 1, HEADERS.length)
@@ -31,9 +34,10 @@ function initializeRegistrationSheet() {
     .setFontWeight("bold");
 
   sheet.setFrozenRows(1);
-  [170, 120, 190, 230, 170, 180, 210, 180, 320, 170, 190, 200, 160].forEach(
-    (width, index) => sheet.setColumnWidth(index + 1, width),
-  );
+  [
+    170, 120, 190, 230, 170, 180, 210, 180, 320, 170, 190, 200, 160, 130,
+    160,
+  ].forEach((width, index) => sheet.setColumnWidth(index + 1, width));
   sheet.getRange("A:A").setNumberFormat("yyyy-mm-dd hh:mm:ss");
 
   return { ok: true, spreadsheetUrl: spreadsheet.getUrl() };
@@ -113,6 +117,8 @@ function doPost(event) {
       safeCell(registration.attendedKesBefore),
       safeCell(registration.financialSupportInterest),
       safeCell(registration.tshirtInterest),
+      safeCell(registration.tshirtColor),
+      safeCell(registration.tshirtSize),
       safeCell(registration.source),
     ]);
 
@@ -142,6 +148,29 @@ function validateRegistration(value) {
     throw new Error("Missing registration data.");
   }
 
+  const tshirtInterest = requiredChoice(
+    value.tshirtInterest,
+    "T-shirt interest",
+    ["yes", "no"],
+  );
+  const tshirtColor = tshirtInterest === "yes"
+    ? requiredChoice(value.tshirtColor, "T-shirt color", [
+        "white",
+        "navy-blue",
+        "black",
+      ])
+    : "";
+  const tshirtSize = tshirtInterest === "yes"
+    ? requiredChoice(value.tshirtSize, "T-shirt size", [
+        "xs",
+        "s",
+        "m",
+        "l",
+        "xl",
+        "xxl",
+      ])
+    : "";
+
   const registration = {
     designation: requiredChoice(value.designation, "Designation", [
       "mr", "mrs", "miss", "ms", "dr", "prof", "pastor", "reverend",
@@ -156,7 +185,9 @@ function validateRegistration(value) {
     hopeToLearn: requiredText(value.hopeToLearn, "Learning goal", 1000),
     attendedKesBefore: requiredChoice(value.attendedKesBefore, "Previous attendance", ["yes", "no"]),
     financialSupportInterest: requiredChoice(value.financialSupportInterest, "Financial support interest", ["yes", "no"]),
-    tshirtInterest: requiredChoice(value.tshirtInterest, "T-shirt interest", ["yes", "no"]),
+    tshirtInterest,
+    tshirtColor,
+    tshirtSize,
     source: optionalText(value.source, 80) || "kes-2026-website",
   };
 
@@ -165,6 +196,20 @@ function validateRegistration(value) {
   }
 
   return registration;
+}
+
+/** Preserve existing Source values when adding the two T-shirt columns. */
+function migrateRegistrationColumns(sheet) {
+  const lastColumn = Math.max(sheet.getLastColumn(), 1);
+  const currentHeaders = sheet.getRange(1, 1, 1, lastColumn).getValues()[0];
+  const sourceIndex = currentHeaders.indexOf("Source");
+  const hasTshirtColumns =
+    currentHeaders.includes("T-shirt Color") ||
+    currentHeaders.includes("T-shirt Size");
+
+  if (sourceIndex >= 0 && !hasTshirtColumns) {
+    sheet.insertColumnsBefore(sourceIndex + 1, 2);
+  }
 }
 
 function requiredText(value, label, maxLength) {

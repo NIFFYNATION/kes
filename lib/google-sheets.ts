@@ -61,6 +61,8 @@ export async function saveRegistration(
           attendedKesBefore: input.attendedKesBefore,
           financialSupportInterest: input.financialSupportInterest,
           tshirtInterest: input.tshirtInterest,
+          tshirtColor: input.tshirtColor,
+          tshirtSize: input.tshirtSize,
           source: "kes-2026-website",
         },
       }),

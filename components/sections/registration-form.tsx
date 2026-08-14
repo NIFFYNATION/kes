@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   Field,
   RadioField,
@@ -13,6 +13,8 @@ import {
   BUSINESS_STAGES,
   DESIGNATIONS,
   EVENT,
+  TSHIRT_COLORS,
+  TSHIRT_SIZES,
   YES_NO_OPTIONS,
 } from "@/lib/constants";
 import {
@@ -42,6 +44,8 @@ const EMPTY = {
   attendedKesBefore: "",
   financialSupportInterest: "",
   tshirtInterest: "",
+  tshirtColor: "",
+  tshirtSize: "",
   website: "",
 };
 
@@ -51,13 +55,24 @@ export function RegistrationForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [formMessage, setFormMessage] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
 
   const set = (key: keyof typeof EMPTY) => (value: string) => {
-    setValues((current) => ({ ...current, [key]: value }));
-    setErrors((current) =>
-      current[key] ? { ...current, [key]: undefined } : current,
-    );
+    setValues((current) => ({
+      ...current,
+      [key]: value,
+      ...(key === "tshirtInterest" && value !== "yes"
+        ? { tshirtColor: "", tshirtSize: "" }
+        : {}),
+    }));
+    setErrors((current) => ({
+      ...current,
+      [key]: undefined,
+      ...(key === "tshirtInterest"
+        ? { tshirtColor: undefined, tshirtSize: undefined }
+        : {}),
+    }));
   };
 
   function goToDetails() {
@@ -106,12 +121,12 @@ export function RegistrationForm() {
         return;
       }
 
-      if (json.redirectUrl) {
-        window.location.assign(json.redirectUrl);
-        return;
-      }
-
+      setWhatsappUrl(json.redirectUrl ?? null);
       setStatus("success");
+
+      if (json.redirectUrl) {
+        window.open(json.redirectUrl, "_blank", "noopener,noreferrer");
+      }
     } catch {
       setStatus("idle");
       setFormMessage("Network error. Please check your connection and retry.");
@@ -151,6 +166,31 @@ export function RegistrationForm() {
             <span className="text-gold-600">{values.email}</span>. Your entry
             pass and full details follow closer to the date.
           </p>
+          {whatsappUrl && (
+            <div className="mt-6 w-full rounded-[1rem] border border-gold-500/25 bg-gold-500/[0.06] p-4">
+              <p className="text-sm leading-relaxed text-cream-dim">
+                The WhatsApp group is opening in a new tab while this
+                confirmation stays here. If it does not open automatically,
+                use the button below.
+              </p>
+              <Button
+                type="button"
+                variant="gold"
+                size="md"
+                className="mt-4 w-full"
+                onClick={() =>
+                  window.open(
+                    whatsappUrl,
+                    "_blank",
+                    "noopener,noreferrer",
+                  )
+                }
+              >
+                Open WhatsApp group
+                <Arrow />
+              </Button>
+            </div>
+          )}
           <div className="hairline my-8" />
           <dl className="grid w-full grid-cols-2 gap-6 text-left">
             <div>
@@ -325,6 +365,46 @@ export function RegistrationForm() {
               error={errors.tshirtInterest}
               disabled={submitting}
             />
+
+            <AnimatePresence initial={false}>
+              {values.tshirtInterest === "yes" && (
+                <motion.div
+                  key="tshirt-options"
+                  initial={reduce ? false : { opacity: 0, height: 0, y: -8 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, height: 0, y: -8 }}
+                  transition={{ duration: reduce ? 0 : 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="grid grid-cols-1 gap-4 rounded-[1rem] border border-gold-500/25 bg-gold-500/[0.06] p-4 sm:grid-cols-2">
+                    <SelectField
+                      label="Preferred T-shirt colour"
+                      options={TSHIRT_COLORS}
+                      placeholder="Select a colour"
+                      value={values.tshirtColor}
+                      onChange={(event) =>
+                        set("tshirtColor")(event.target.value)
+                      }
+                      error={errors.tshirtColor}
+                      disabled={submitting}
+                      required
+                    />
+                    <SelectField
+                      label="T-shirt size"
+                      options={TSHIRT_SIZES}
+                      placeholder="Select a size"
+                      value={values.tshirtSize}
+                      onChange={(event) =>
+                        set("tshirtSize")(event.target.value)
+                      }
+                      error={errors.tshirtSize}
+                      disabled={submitting}
+                      required
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button

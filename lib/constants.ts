@@ -67,6 +67,21 @@ export const YES_NO_OPTIONS = [
   { value: "no", label: "No" },
 ] as const;
 
+export const TSHIRT_COLORS = [
+  { value: "white", label: "White" },
+  { value: "navy-blue", label: "Navy Blue" },
+  { value: "black", label: "Black" },
+] as const;
+
+export const TSHIRT_SIZES = [
+  { value: "xs", label: "XS" },
+  { value: "s", label: "S" },
+  { value: "m", label: "M" },
+  { value: "l", label: "L" },
+  { value: "xl", label: "XL" },
+  { value: "xxl", label: "XXL" },
+] as const;
+
 export const NAV_LINKS = [
   { label: "The Summit", href: "#sovereign" },
   { label: "Pillars", href: "#pillars" },
