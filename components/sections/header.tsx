@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import kesLogo from "@/public/kes-logo-2026.png";
 import { motion, useReducedMotion } from "motion/react";
-import { EVENT, NAV_LINKS } from "@/lib/constants";
+import { EVENT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -34,10 +35,8 @@ export function Header() {
           {/* Logo */}
           <a href="#top" className="group flex items-center">
             <Image
-              src="/kes-logo-2026.png"
+              src={kesLogo}
               alt={EVENT.name}
-              width={946}
-              height={402}
               className="h-10 w-auto transition-opacity duration-300 group-hover:opacity-80 sm:h-12 lg:h-14"
               preload
             />

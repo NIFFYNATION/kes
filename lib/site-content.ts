@@ -92,6 +92,13 @@ export const SPEAKERS = [
     initials: "ME",
   },
   {
+    role: "Compere",
+    name: "Ajobo Mary",
+    topic: "Worship Interlude",
+    bio: "Min. Ebunpraise leads the worship interlude at KES 2026, creating a moment of spiritual alignment ahead of the summit's closing session.",
+    initials: "ME",
+  },
+  {
     role: "Convener · Closing Session",
     name: "Taiwo Adewa",
     topic: "Kingdom Authority & the Legacy Mandate",
