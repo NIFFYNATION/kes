@@ -1,8 +1,30 @@
+import Image from "next/image";
+
 import { Stagger, StaggerItem } from "@/components/animations/reveal";
 import { SectionIntro } from "@/components/ui/section-intro";
 import { SPEAKERS } from "@/lib/site-content";
 
-function SpeakerPortrait({ initials }: { initials: string }) {
+type SpeakerPortraitProps = {
+  alt: string | null;
+  initials: string;
+  src: string | null;
+};
+
+function SpeakerPortrait({ alt, initials, src }: SpeakerPortraitProps) {
+  if (src && alt) {
+    return (
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#081c5c]">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(min-width: 768px) 470px, calc(100vw - 40px)"
+          className="object-cover object-[center_28%]"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_28%,#f2cf61_0_12%,transparent_12.5%),radial-gradient(ellipse_at_50%_110%,rgba(242,207,97,0.8)_0_38%,transparent_38.5%),linear-gradient(145deg,#09246b,#020a31)]">
       <span className="sr-only">
@@ -32,7 +54,11 @@ export function Speakers() {
                     : "border-[#d9dbe3] bg-[#f8f6f0]"
                 }`}
               >
-                <SpeakerPortrait initials={speaker.initials} />
+                <SpeakerPortrait
+                  alt={speaker.imageAlt}
+                  initials={speaker.initials}
+                  src={speaker.image}
+                />
                 <div className="p-[22px]">
                   <p
                     className={`text-label uppercase ${
