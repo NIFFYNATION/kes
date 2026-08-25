@@ -11,7 +11,7 @@ export const EVENT = {
   tagline: "Influence. Audacity. Legacy.",
   description:
     "A free gathering for faith-driven entrepreneurs ready to build with purpose, lead with conviction, and create something worth repeating.",
-  url: "https://kingdomentrepreneurssummit.com",
+  url: "https://kesummit.com.ng",
   dates: {
     label: "October 17, 2026",
     full: "Saturday, October 17, 2026",
