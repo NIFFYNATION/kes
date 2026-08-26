@@ -90,9 +90,9 @@ export const SPEAKERS = [
   },
   {
     role: "Worship Minister",
-    name: "Min. Ebunpraise",
+    name: "Precious Adewa",
     topic: "Worship Interlude",
-    bio: "Adewa Precious (Ebunpraise) is a Gospel music minister, certified Nurse-Midwife, counsellor, and CEO of PRESH-RUBY Events. She is the convener of the Holy Ghost Invasion Worship Encounter and is passionate about leading people into meaningful encounters with God, inspiring purposeful living, serving humanity, and creating memorable experiences through faith, worship, and creativity.",
+    bio: "Precious Adewa (Ebunpraise) is a Gospel music minister, certified Nurse-Midwife, counsellor, and CEO of PRESH-RUBY Events. She is the convener of the Holy Ghost Invasion Worship Encounter and is passionate about leading people into meaningful encounters with God, inspiring purposeful living, serving humanity, and creating memorable experiences through faith, worship, and creativity.",
     initials: "ME",
     image: "/speakers/ebunpraise.png",
     imageAlt: "Min. Ebunpraise, KES 2026 worship minister",
@@ -124,14 +124,16 @@ export const RUNNING_ORDER = [
     title: "Influence as Currency",
     type: "Session 1",
     description:
-      "Speaker session · The entrepreneur's blueprint for building brands, skills, and sustainable growth.",
+      "The Entrepreneur’s Blueprint for Building Brands, Skills & Sustainable Growth.",
+      // "Speaker session · The entrepreneur's blueprint for building brands, skills, and sustainable growth.",
   },
   {
     number: "02",
     title: "Audacity to Build",
     type: "Session 2",
     description:
-      "Speaker session · Making bold decisions in uncertain markets.",
+      "Creating a Legacy of Generational Impact.",
+      // "Speaker session · Making bold decisions in uncertain markets.",
   },
   {
     number: "03",
@@ -143,7 +145,7 @@ export const RUNNING_ORDER = [
     number: "04",
     title: "Worship",
     type: "Interlude",
-    description: "Led by Min. Ebunpraise, ahead of the closing session.",
+    description: "Led by Precious Adewa, ahead of the closing session.",
   },
   {
     number: "05",
