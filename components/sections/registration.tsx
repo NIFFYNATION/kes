@@ -51,7 +51,7 @@ export function Registration() {
                 <div className="rounded-[18px] border border-[#d9dbe3] bg-white px-5 py-6 md:min-h-[132px]">
                   <dt className="font-heading text-label uppercase text-gold-600">When</dt>
                   <dd className="font-heading mt-2 text-[0.93rem] font-bold leading-[1.45] text-cream">
-                    {EVENT.dates.full}
+                    {EVENT.dates.full } at {EVENT.dates.time}
                   </dd>
                 </div>
                 <div className="rounded-[18px] border border-[#d9dbe3] bg-white px-5 py-6 md:min-h-[132px]">

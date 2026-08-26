@@ -3,6 +3,8 @@
  * Keeps the Hero, registration, Footer and metadata in sync.
  */
 
+import { time } from "node:console";
+
 export const EVENT = {
   name: "Kingdom Entrepreneurs Summit",
   shortName: "KES",
@@ -15,6 +17,7 @@ export const EVENT = {
   dates: {
     label: "October 17, 2026",
     full: "Saturday, October 17, 2026",
+    time: "09:00 AM ",
     short: "Oct 17",
     iso: "2026-10-17",
     day: "Saturday",

@@ -149,10 +149,10 @@ export const RUNNING_ORDER = [
   },
   {
     number: "05",
-    title: "Kingdom Authority & the Legacy Mandate",
+    title: "THE SOVEREIGN ENTREPRENEUR",
     type: "Session 3",
     description:
-      "Closing session with Taiwo Adewa · Purpose, stewardship, integrity, and building what outlives the founder. Impartation to close.",
+      "Deploying Divine Strategy for Marketplace Dominion & Transformational Legacy.",
     featured: true,
   },
 ] as const;
