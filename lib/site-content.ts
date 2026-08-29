@@ -109,7 +109,7 @@ export const SPEAKERS = [
   {
     role: "Convener · Closing Session",
     name: "Taiwo Adewa",
-    topic: "Kingdom Authority & the Legacy Mandate",
+    topic: "Deploying Divine Strategy for Marketplace Dominion & Transformational Legacy",
     bio: "Taiwo Adewa is a perioperative nurse, brand strategist, and founder of Oclick Media. A multipotentialite himself, he helps believers and entrepreneurs discern purpose and build aligned, profitable systems. He convenes Kingdom Entrepreneurs Summit, now in its fourth year, empowering marketplace leaders for influence, legacy, and kingdom impact.",
     initials: "TA",
     featured: true,
